@@ -45,10 +45,10 @@ fun <T : Comparable<T>> insertionSort(arr: Array<T>): Array<T> {
         -- Inserte descripcion de los parametros de entrada y salida --
  */
 fun <T : Comparable<T>> selectionSort(arr: Array<T>): Array<T> {
-    for (i = 0 until (arr.size - 2)) {
+    for (i in 0 until (arr.size - 2)) {
         var temp = arr[i]
         var loc = i
-        for (j = i+1 until (arr.size - 1)){
+        for (j in i+1 until (arr.size - 1)){
             if (arr[j] < arr[loc]){
                 loc = j
             } 
