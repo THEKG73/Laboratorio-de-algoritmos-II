@@ -39,3 +39,12 @@ fun main(args: Array<String>) {
     println("Tiempo de ejecución: $time ns")
 
 }
+
+fun estaOrdenAscendente (arr:Array<Int>):Boolean{
+    for (i in 0 until (arr.size-1)){
+        if (arr[i]>arr[i+1]){
+            return false
+        }
+    }
+    return true
+}
