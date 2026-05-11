@@ -1,1 +1,1 @@
-
+java -jar PruebaOrdenamiento.jar $*
