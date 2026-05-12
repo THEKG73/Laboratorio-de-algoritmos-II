@@ -1,7 +1,7 @@
 KC=kotlinc
 KFLAGS=-include-runtime
-PROG=PruebaOrdenamiento.jar
-SRC=Ordenamiento.kt PruebaAlgorimosSimples.kt
+PROG=PruebaAlgorimosSimples.jar
+SRC=Ordenamiento.kt PruebaAlgoritmosSimples.kt
 
 all:
 	$(KC) $(SRC) $(KFLAGS) -d $(PROG)
