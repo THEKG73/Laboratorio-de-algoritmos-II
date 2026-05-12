@@ -36,13 +36,13 @@ fun <T : Comparable<T>> bubbleSort(arr: Array<T>): Array<T> {
  */
 fun <T : Comparable<T>> insertionSort(arr: Array<T>): Array<T> {
     for (i in 1 until (arr.size)) {
-        var temp = arr[i]
-        var j = i-1
-        while (j>=0 && arr[j] > temp) {
-            arr[j+1] = arr[j]
+        var j = i
+        while (j>=1 && arr[j] < arr[j-1]) {
+            var temp = arr[j]
+            arr[j] = arr[j-1]
+            arr[j-1] = temp
             j = j - 1
         }
-        arr[j+1] = temp
     }
     return arr
 }
