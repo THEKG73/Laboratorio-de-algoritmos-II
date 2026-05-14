@@ -45,8 +45,8 @@ Corre el programa indicando la cantidad de elementos que deseas ordenar (por eje
 ```bash
 ./runPruebaOrdenamiento.sh -s <'secuencia'> -n <'cantidad de elementos'>
 ```
-Ejemplo: ./runPruebaOrdenamiento.sh -s random -n 100
-Ejemplo: ./runPruebaOrdenamiento.sh -s randomd -n 100
+* Ejemplo: ./runPruebaOrdenamiento.sh -s random -n 100
+* Ejemplo: ./runPruebaOrdenamiento.sh -s randomd -n 100
 
 ### Notas Adicionales:
 * Se utilizaron nanosegundos para medir el tiempo, ya que necesitamos precisión a la hora de medir cuanto dura la ejecución.
