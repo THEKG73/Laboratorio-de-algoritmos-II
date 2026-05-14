@@ -1,20 +1,24 @@
 # Laboratorio de Algoritmos II: Prueba de Ordenamiento
 
-Este proyecto implementa y evalúa el algoritmo de ordenamiento **Bubble Sort** (Ordenamiento de Burbuja) utilizando el lenguaje **Kotlin**. El sistema permite generar secuencias aleatorias de tamaño variable, procesarlas y validar su integridad de forma automática.
+Este proyecto implementa y evalúa los algoritmos de ordenamiento **Bubble Sort, Insertion Sort y Selection Sort** (Ordenamiento de Burbuja, ordenamiento de Inserción y ordenamiento de Selección) utilizando el lenguaje **Kotlin**. El sistema permite generar secuencias aleatorias de tamaño variable, procesarlas y validar su integridad de forma automática.
 
 ## Descripción de los Archivos
 
 ### 1. `Ordenamiento.kt`
 Contiene las funciones lógicas del laboratorio:
-* **`bubbleSort(A: Array<Int>)`**: Implementación del algoritmo de burbuja con complejidad $O(n^2)$.
-* **`estaEnOrdenAscendente(A: Array<Int>)`**: Función de validación que recorre el arreglo para asegurar que cada elemento sea menor o igual al siguiente.
+* **`<T : Comparable<T>> bubbleSort(arr: Array<T>)`**: Implementación del algoritmo de burbuja con complejidad $O(n^2)$.
+* **`<T : Comparable<T>> insertionSort(arr: Array<T>)`**: Implementación del algoritmo de inserción con complejidad $O(n^2)$ o en casos óptimos $O(n)$.
+* **`<T : Comparable<T>> selectionSort(arr: Array<T>)`**: Implementación del algoritmo de selección con complejidad $O(n^2)$.
 
-### 2. `Main.kt`
+### 2. `PruebaAlgoritmosSimples.kt`
 Es el punto de entrada del programa. Sus responsabilidades incluyen:
 * Validar los argumentos pasados por línea de comandos.
+* Verificar que secuencia se va a utilizar
 * Instanciar un arreglo de tamaño `n`.
-* Poblar el arreglo con números aleatorios.
+* Poblar el arreglo con números aleatorios (dependiendo de la secuencia).
 * Llamar a las funciones de ordenamiento y validación.
+* **`estaEnOrdenAscendente(A: Array<Int>)`**: Función de validación que recorre el arreglo para asegurar que cada elemento sea menor o igual al siguiente.
+* Mostrar en terminal la secuencia original, el algoritmo de ordenamiento utilizado, la secuencia de números ordenada, la validación del orden y el tiempo que duró el proceso de ordenamiento.
 
 ### 3. `Makefile`
 Automatiza el proceso de compilación para entornos Linux/WSL. Define las reglas para usar `kotlinc` con los flags necesarios para incluir el runtime de Kotlin.
@@ -39,12 +43,10 @@ chmod +x runPruebaOrdenamiento.sh
 
 Corre el programa indicando la cantidad de elementos que deseas ordenar (por ejemplo, 100)
 ```bash
-./runPruebaOrdenamiento.sh <n>
+./runPruebaOrdenamiento.sh -s <'secuencia'> -n <'cantidad de elementos'>
 ```
-Ejemplo: ./runPruebaOrdenamiento.sh 100
+Ejemplo: ./runPruebaOrdenamiento.sh -s random -n 100
+Ejemplo: ./runPruebaOrdenamiento.sh -s randomd -n 100
 
 ### Notas Adicionales:
-* **Uso de `$*`**: En el script `.sh`, este operador asegura que todos los parámetros que escribas después del comando (como el `100`) se pasen directamente a la máquina virtual de Java.
-* **Tabuladores**: Recuerda que si editas el `Makefile` manualmente, la línea de comandos de la regla `all:` debe llevar un **tabulador** real.
-* **make clean**: Para limpiar el directorio y eliminar el archivo .jar generado.
-* **Medidores de Tiempo**: Se implementaron 3 maneras para capturar el tiempo de corrida de una funcion, 2 en milisegundos y 1 en nanosegundos. Nanosegundos nos puede servir si es un tiempo corto (En nuestro caso pocos elementos) y necesitamos precision.
+* Se utilizaron nanosegundos para medir el tiempo, ya que necesitamos precisión a la hora de medir cuanto dura la ejecución.
