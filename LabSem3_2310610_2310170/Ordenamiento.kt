@@ -69,3 +69,94 @@ fun <T : Comparable<T>> selectionSort(arr: Array<T>): Array<T> {
     }
     return arr
 }
+
+/**
+ * 4. ordenaDos: La funcion verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto
+                 se intercambian los elementos.
+ * * Parámetros:
+        La funcion recibe un array de dos elementos de un tipo comparable, para este laboratorio sera entero o double, y devuelve 
+        un arreglo del mismo tipo ordenado ascendentemente.
+ */
+fun <T: Comparable<T>> ordenaDos(arr: Array<T>): Array<T> {
+    if (arr[0]>arr[1]){
+        val temp = arr[0]
+        arr[0]=arr[1]
+        arr[1]=arr[0]
+    }
+    return arr
+}
+
+/**
+ * 5. ordenaTres: La funcion verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto
+                  se intercambian los elementos; después se verifica si el segundo elemento es mayor al tercero, en caso de que
+                  sea cierto se intercambian; por último se verifica si el primer elemento del arreglo es mayor al segundo elemento, 
+                  en caso de que sea cierto se intercambian los elementos.
+ * * Parámetros:
+        La funcion recibe un array de tres elementos de un tipo comparable, para este laboratorio sera entero o double, y devuelve 
+        un arreglo del mismo tipo ordenado ascendentemente.
+ */
+fun <T: Comparable<T>> ordenaTres(arr: Array<T>): Array<T> {
+    if (arr[0]>arr[1]){
+        val temp = arr[0]
+        arr[0]=arr[1]
+        arr[1]=temp
+    }
+    if (arr[1]>arr[2]){
+        val temp = arr[1]
+        arr[1]=arr[2]
+        arr[2]=temp
+    }
+    if (arr[0]>arr[1]){
+        val temp = arr[0]
+        arr[0]=arr[1]
+        arr[1]=temp
+    }
+    return arr
+}
+
+/**
+ * 6. ordenaCuatro: La funcion verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto
+                    se intercambian los elementos; después se verifica si el segundo elemento es mayor al tercero, en caso de que
+                    sea cierto se intercambian; posteriormente se verifica si el tercer elemento del arreglo es mayor al cuarto 
+                    elemento, en caso de que sea cierto se intercambian los elementos; luego se verifica si el primer elemento del 
+                    arreglo es mayor al segundo elemento, en caso de que sea cierto se intercambian los elementos; seguidamente se 
+                    verifica si el segundo elemento es mayor al tercero, en caso de que sea cierto se intercambian; por último 
+                    se verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto se 
+                    intercambian los elementos.
+ * * Parámetros:
+        La funcion recibe un array de cuatro elementos de un tipo comparable, para este laboratorio sera entero o double, y devuelve 
+        un arreglo del mismo tipo ordenado ascendentemente.
+ */
+fun <T: Comparable<T>> ordenaCuatro(arr: Array<T>): Array<T> {
+    if (arr[0]>arr[1]){
+        val temp = arr[0]
+        arr[0]=arr[1]
+        arr[1]=temp
+    }
+    if (arr[1]>arr[2]){
+        val temp = arr[1]
+        arr[1]=arr[2]
+        arr[2]=temp
+    }
+    if (arr[2]>arr[3]){
+        val temp = arr[2]
+        arr[2]=arr[3]
+        arr[3]=temp
+    }
+    if (arr[0]>arr[1]){
+        val temp = arr[0]
+        arr[0]=arr[1]
+        arr[1]=temp
+    }
+    if (arr[1]>arr[2]){
+        val temp = arr[1]
+        arr[1]=arr[2]
+        arr[2]=temp
+    }
+    if (arr[0]>arr[1]){
+        val temp = arr[0]
+        arr[0]=arr[1]
+        arr[1]=temp
+    }
+    return arr
+}
