@@ -6,7 +6,7 @@ PROG=PruebaOrdenamiento.jar
 CP=libPlotRuntime/lets-plot-jfx-2.0.2.jar:libPlotRuntime/lets-plot-kotlin-api-2.0.1.jar:.
 
 # TODOS los archivos fuentes necesarios 
-SRCS=Ordenamiento.kt Main.kt PlotRuntime.kt SwingJfxDemoFrontendContext.kt
+SRCS=Ordenamiento.kt PruebaOrdenamiento.kt PlotRuntime.kt SwingJfxDemoFrontendContext.kt
 
 # Regla por defecto
 all: $(PROG)

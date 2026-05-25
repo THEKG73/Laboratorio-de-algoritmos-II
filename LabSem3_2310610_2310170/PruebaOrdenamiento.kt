@@ -12,11 +12,88 @@ import kotlin.random.Random
  */
 fun main(args: Array<String>) {
 
-    // Verificación de argumento no vacío
-    if (args.isEmpty()) {
-        println("Error: Se esperan argumentos")
-        return
+    // Verificar que tengamos los argumentos mínimos (intentos, output y al menos un tamaño)
+    if (args.size < 5) {
+        println("Error: El programa debe recibir intentos, nombre de salida y al menos un tamaño.")
+        System.exit(1)
     }
+
+    // Captura de argumentos desde el script de Bash
+    val algorithms: Array<String> = args[0].split(',').toTypedArray()
+    val sequence = args[1].trim()
+    val intentos = args[2].trim().toInt()
+    val graphName = args[3].trim()
+    val tamaños: IntArray = args[4].split(',').toTypedArray().map { it.trim().toInt() }.toIntArray()
+
+    val totalMuestras = algorithms.size * tamaños.size
+
+    // Estructuras de datos planas requeridas por plotRuntime
+    val algorithmsLabels = Array<String>(totalMuestras) { "" }
+    val numElements = Array<Int>(totalMuestras) { 0 }
+    val averageTimes = Array<Double>(totalMuestras) { 0.0 }
+    val minTimes = Array<Double>(totalMuestras) { 0.0 }
+    val maxTimes = Array<Double>(totalMuestras) { 0.0 }
+
+    for (n in tamaños) {
+        for (t in intentos) {
+            when (sequence.last()) {
+                'd' -> {
+                    val sec = Array(n) { Random.nextDouble() }
+                    if (sequence == "sortedd") {
+                        sec.sort()
+                    }
+                    for (algo in algorithms) {
+                        llamarOrdenamiento(sec, algo)
+                    }
+                }
+                else -> {
+                    val sec = IntArray(n)
+                    when (sequence) {
+                        "random" -> {
+                            for (i in 0 until n) {
+                                sec[i] = Random.nextInt(0, n + 1)
+                            }
+                        }`
+                        "sorted" -> {
+                            for (i in 0 until n) {
+                                sec[i] = Random.nextInt(0, n + 1)
+                                sec.sort()
+                            }
+                        }
+                        "inv" -> {
+                            for (i in 0 until n) {
+                                sec[i] = Random.nextInt(0, n + 1)
+                                sec.sortDescending()
+                            }
+                        }
+                        "zu" -> {
+                            for (i in 0 until n) {
+                                sec[i] = Random.nextInt(2)
+                            }
+                        }
+                        "media" -> {
+                            var h = n
+                            if (n%2 != 0) {
+                                h = n - 1
+                            }
+                            for (i in 1 until h+1) {
+                                    if (i <= h/2) {
+                                        sec[i - 1] = i
+                                    } else {
+                                        sec[i - 1] = h - i + 1
+                                    }
+                            }
+                            sec[n-1] = 1
+                        }
+                    }
+                    for (algo in algorithms) {
+                        llamarOrdenamiento(sec, algo)
+                    }
+                }
+            }
+        }
+    }
+                
 
     // Obtenemos el tipo y el tamaño de la secuencia
     var secuencia = ""
@@ -115,9 +192,9 @@ fun <T: Comparable<T>> llamarOrdenamiento(arr:Array<T>, algoritmo: String):Boole
     val startTime = System.nanoTime()
 
     when (algoritmo) {
-        "selectionSort" -> tempArr = selectionSort(tempArr)
-        "insertionSort" -> tempArr = insertionSort(tempArr)
-        "bubbleSort" -> tempArr = bubbleSort(tempArr)
+        "ss" -> tempArr = selectionSort(tempArr)
+        "is" -> tempArr = insertionSort(tempArr)
+        "bs" -> tempArr = bubbleSort(tempArr)
     }
 
     // Tiempo de fin de la función de ordenamiento
