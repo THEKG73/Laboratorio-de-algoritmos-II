@@ -206,7 +206,6 @@ fun main(args: Array<String>) {
             println("Error al renderizar el gráfico: ${e.message}")
         }
     }
-    
 }
                 
 
