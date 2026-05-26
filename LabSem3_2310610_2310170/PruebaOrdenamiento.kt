@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
             System.exit(1)
         }
     }
-    val sequence = args[1].trim()
+    var sequence = args[1].trim()
     val intentos = args[2].trim().toInt()
     val graphName = args[3].trim()
     val partes = args[4].split(",")
@@ -55,7 +55,9 @@ fun main(args: Array<String>) {
     val minTimes = Array<Double>(totalMuestras) { 0.0 }
     val maxTimes = Array<Double>(totalMuestras) { 0.0 }
 
-    //Generamos el conjunto de t intentos para cada tamaño N
+    if (sequence == "sorted") {
+        sequence = "sorte"
+    }
     when (sequence.last()) {
         'd' -> {
             val sec = Array(tamaños.size) { Array(intentos) { Array(1) {0.0} } }
@@ -106,7 +108,7 @@ fun main(args: Array<String>) {
                         }
                     }
                 }
-                "sorted" -> {
+                "sorte" -> {
                     for (n in tamaños.indices) {
                         for (i in 0 until intentos) {
                             sec[n][i] = Array(tamaños[n]) { (0..tamaños[n]).random() }
