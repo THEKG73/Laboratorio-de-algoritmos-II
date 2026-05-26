@@ -69,7 +69,8 @@ Para realizar las pruebas empíricas de rendimiento se utiliza el script de Bash
 ./pord.sh [-t #num] [-a <alg>] [-s <tipo arr>] [-n <tamaños>] [-o <figura>]
 ```
 
-Semántica de los Parámetros-t: Especifica el número de intentos o repeticiones en las que se aplicará la clase de arreglo seleccionada para promediar los tiempos.  
+Semántica de los Parámetros
+* -t: Especifica el número de intentos o repeticiones en las que se aplicará la clase de arreglo seleccionada para promediar los tiempos.  
 * -a: Define los algoritmos de ordenamiento a ejecutar separados por comas sin espacios intermedios (ej. ms,bs,is).  
 * -s: Identificador de la clase de arreglo a generar (random, inv, media, etc.). Si se indica un identificador inválido, el programa aborta con error.  
 * -n: Serie de números que indican los tamaños de los arreglos a generar. Deben ingresarse en orden estrictamente ascendente, ser diferentes y estar separados por comas. En caso contrario, la ejecución se aborta.  
