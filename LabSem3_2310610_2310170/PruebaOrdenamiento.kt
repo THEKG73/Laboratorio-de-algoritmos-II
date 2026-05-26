@@ -12,18 +12,40 @@ import kotlin.random.Random
  */
 fun main(args: Array<String>) {
 
-    // Verificar que tengamos los argumentos mínimos (intentos, output y al menos un tamaño)
+    // Verificar que tengamos los argumentos mínimos (intentos, output, secuencia, algoritmos y al menos un tamaño)
     if (args.size < 5) {
-        println("Error: El programa debe recibir intentos, nombre de salida y al menos un tamaño.")
+        println("Error: El programa debe recibir intentos, nombre de salida, secuencia, algoritmos y al menos un tamaño.")
         System.exit(1)
     }
 
-    // Captura de argumentos desde el script de Bash
+    // Captura de argumentos desde el script de Bash y verificación de su formato
     val algorithms: Array<String> = args[0].split(',').toTypedArray()
+    for (algo in algorithms) {
+        if (algo.length < 2) {
+            println("Error: los algoritmos parámetros fueron ingresados en formato incorrecto. Formato esperado: ms,bs,is")
+            System.exit(1)
+        }
+    }
     val sequence = args[1].trim()
     val intentos = args[2].trim().toInt()
     val graphName = args[3].trim()
-    val tamaños: IntArray = args[4].split(',').toTypedArray().map { it.trim().toInt() }.toIntArray()
+    val tamaños: Array<Int> = try {
+        args[4].split(",").map { it.trim().toInt() }.toTypedArray()
+    } catch (e: Exception) {
+        println("Error: Los tamaños deben ser enteros y deben ingresarse en formato correcto, ejemplo: 200,300,400")
+        System.exit(1)
+        arrayOf()
+    }
+
+    if (tamaños.size != tamaños.toSet().size || !estaOrdenAscendente(tamaños)) {
+        println("Error: No deben haber tamaños repetidos ni estar en orden descendente")
+        System.exit(1)
+    }
+    
+    if (tamaños.size == 1 && graphName != "SinGrafico.png") {
+        println("Error: Para un solo tamaño, no se puede generar una gráfica comparativa")
+        System.exit(1)
+    }
 
     val totalMuestras = algorithms.size * tamaños.size
 
@@ -34,129 +56,159 @@ fun main(args: Array<String>) {
     val minTimes = Array<Double>(totalMuestras) { 0.0 }
     val maxTimes = Array<Double>(totalMuestras) { 0.0 }
 
-    for (n in tamaños) {
-        for (t in intentos) {
-            when (sequence.last()) {
-                'd' -> {
-                    val sec = Array(n) { Random.nextDouble() }
+    //Generamos el conjunto de t intentos para cada tamaño N
+    when (sequence.last()) {
+        'd' -> {
+            val sec = Array(tamaños.size) { Array(intentos) { Array(1) {0.0} } }
+            for (n in tamaños.indices) {
+                for (i in 0 until intentos) {
+                    sec[n][i] = Array(tamaños[n]) { Random.nextDouble() }
                     if (sequence == "sortedd") {
-                        sec.sort()
+                        sec[n][i].sort()
                     }
-                    for (algo in algorithms) {
-                        llamarOrdenamiento(sec, algo)
+                }
+            }
+
+            println("Iniciando pruebas empíricas desde pord.sh ($intentos intentos)...")
+
+            var indiceMuestra = 0
+
+            for (algo in algorithms) {
+                for (n in tamaños.indices) {
+                    algorithmsLabels[indiceMuestra] = algo
+                    numElements[indiceMuestra] = tamaños[n]
+
+                    val tiemposDeIntentos = DoubleArray(intentos)
+
+                    for (intent in 0 until intentos) {
+                        tiemposDeIntentos[intent] = llamarOrdenamiento(sec[n][intent], algo)
+                    }
+                    val min = tiemposDeIntentos.minOrNull() ?: 0.0
+                    val max = tiemposDeIntentos.maxOrNull() ?: 0.0
+                    val avg = tiemposDeIntentos.average()
+
+                    minTimes[indiceMuestra] = min
+                    maxTimes[indiceMuestra] = max
+                    averageTimes[indiceMuestra] = avg
+
+                    println("[$algo] N = ${tamaños[n]} -> Avg: ${String.format("%.5f", avg)}s (Min: ${String.format("%.5f", min)}s, Max: ${String.format("%.5f", max)}s)")
+                    indiceMuestra++
+                }
+            }
+        }        
+        else -> {
+            val sec = Array(tamaños.size) { Array(intentos) { Array(1) {0} } }
+            when (sequence) {
+                "random" -> {
+                    for (n in tamaños.indices) {
+                        for (i in 0 until intentos) {
+                            sec[n][i] = Array(tamaños[n]) { (0..tamaños[n]).random() }
+                        }
+                    }
+                }
+                "sorted" -> {
+                    for (n in tamaños.indices) {
+                        for (i in 0 until intentos) {
+                            sec[n][i] = Array(tamaños[n]) { (0..tamaños[n]).random() }
+                            sec[n][i].sort()
+                        }
+                    }
+                }
+                "inv" -> {
+                    for (n in tamaños.indices) {
+                        for (i in 0 until intentos) {
+                            sec[n][i] = Array(tamaños[n]) { (0..tamaños[n]).random() }
+                            sec[n][i].sortDescending()
+                        }
+                    }
+                }
+                "zu" -> {
+                    for (n in tamaños.indices) {
+                        for (i in 0 until intentos) {
+                            sec[n][i] = Array(tamaños[n]) { (0..1).random() }
+                        }
+                    }
+                }
+                "media" -> {
+                    for (n in tamaños.indices){
+                        val secMedia = Array(tamaños[n]) {0}
+                        var h = tamaños[n]
+                        if (h%2 != 0) {
+                            h--
+                            secMedia[secMedia.size-1] = 1
+                        }
+                        for (i in 1 until h+1) {
+                            if (i <= h/2) {
+                                secMedia[i - 1] = i
+                            } else {
+                                secMedia[i - 1] = h - i + 1
+                            }
+                        }
+                        for (i in 0 until intentos) {
+                            sec[n][i] = secMedia.copyOf()
+                        }
                     }
                 }
                 else -> {
-                    val sec = IntArray(n)
-                    when (sequence) {
-                        "random" -> {
-                            for (i in 0 until n) {
-                                sec[i] = Random.nextInt(0, n + 1)
-                            }
-                        }`
-                        "sorted" -> {
-                            for (i in 0 until n) {
-                                sec[i] = Random.nextInt(0, n + 1)
-                                sec.sort()
-                            }
-                        }
-                        "inv" -> {
-                            for (i in 0 until n) {
-                                sec[i] = Random.nextInt(0, n + 1)
-                                sec.sortDescending()
-                            }
-                        }
-                        "zu" -> {
-                            for (i in 0 until n) {
-                                sec[i] = Random.nextInt(2)
-                            }
-                        }
-                        "media" -> {
-                            var h = n
-                            if (n%2 != 0) {
-                                h = n - 1
-                            }
-                            for (i in 1 until h+1) {
-                                    if (i <= h/2) {
-                                        sec[i - 1] = i
-                                    } else {
-                                        sec[i - 1] = h - i + 1
-                                    }
-                            }
-                            sec[n-1] = 1
-                        }
+                    println("Error: Secuencia inválida")
+                    System.exit(1)
+                }
+            }
+            println("Iniciando pruebas empíricas desde pord.sh ($intentos intentos)...")
+
+            var indiceMuestra = 0
+            
+            for (algo in algorithms) {
+                for (n in tamaños.indices) {
+                    algorithmsLabels[indiceMuestra] = algo
+                    numElements[indiceMuestra] = tamaños[n]
+
+                    val tiemposDeIntentos = DoubleArray(intentos)
+
+                    for (intent in 0 until intentos) {
+                        tiemposDeIntentos[intent] = llamarOrdenamiento(sec[n][intent], algo)
                     }
-                    for (algo in algorithms) {
-                        llamarOrdenamiento(sec, algo)
-                    }
+                    val min = tiemposDeIntentos.minOrNull() ?: 0.0
+                    val max = tiemposDeIntentos.maxOrNull() ?: 0.0
+                    val avg = tiemposDeIntentos.average()
+
+                    minTimes[indiceMuestra] = min
+                    maxTimes[indiceMuestra] = max
+                    averageTimes[indiceMuestra] = avg
+
+                    println("[$algo] N = ${tamaños[n]} -> Avg: ${String.format("%.5f", avg)}s (Min: ${String.format("%.5f", min)}s, Max: ${String.format("%.5f", max)}s)")
+                    indiceMuestra++
                 }
             }
         }
     }
+
+    // Generar la gráfica usando el nombre dinámico elegido por el usuario, solo si se han ingresado más de un tamaño para comparar
+    if (graphName != "SinGrafico.png") {
+        try {
+            println("\nGenerando gráfica comparativa...")
+            plotRuntime(
+                "Laboratorio 2: Gráficas de Rendimiento",
+                ".",
+                graphName,
+                "Resultados de la secuencia de números aleatorios",
+                "Número de elementos (N)",
+                "Tiempo de ejecución (segundos)",
+                algorithmsLabels,
+                numElements,
+                minTimes,
+                averageTimes,
+                maxTimes
+            )
+            println("¡Gráfica guardada exitosamente como '$graphName'!")
+        } catch (e: Exception) {
+            println("Error al renderizar el gráfico: ${e.message}")
+        }
+    }
+    
+}
                 
 
-    // Obtenemos el tipo y el tamaño de la secuencia
-    var secuencia = ""
-    var n = -1
-    for (i in args.indices step 2) {
-        if (args[i].trim() == "-s") {
-            secuencia = args[i + 1].trim()
-        } else if (args[i].trim() == "-n") {
-            n = args[i + 1].trim().toInt()
-        }
-    }
-
-
-    // Verificación de argumentos no vacíos
-    if (secuencia == "" || n == -1) {
-        println("Error: Se esperan argumentos -s <secuencia> -n <tamaño>")
-        return
-    }
-
-
-    // Verificación de secuencia válida
-    if (secuencia != "random" && secuencia != "randomd"){
-        println("Secuencia inválida")
-        return
-    }
-
-    // Generación de la secuencia de tamaño n sin ordenar y ejecución de los algoritmos de ordenamiento
-    when (secuencia) {
-        "random" -> {
-            val sec = Array(n) {Random.nextInt(0, n+1)}
-            ejecutarAlgoritmos(sec)
-        }
-        "randomd" -> {
-            val sec = Array(n) {Random.nextDouble()}
-            ejecutarAlgoritmos(sec)
-        }
-    }
-}
-
-/**
- * Ejecuta todos los algoritmos de ordenamiento en el arreglo dado.
- * Pre-condiciones: arr no es nulo.
- * Post-condiciones: check será true si todos los algoritmos de ordenamiento son exitosos, false en caso contrario.
- * @param arr El arreglo a ordenar.
- * @param T Tipo genérico que debe ser Comparable.
- * @return Unit (nada).
- */
-fun <T: Comparable<T>> ejecutarAlgoritmos(arr:Array<T>) {
-    println("Secuencia original: ${arr.joinToString()}")
-
-    var check = true
-    // SELECTION SORT
-    check = llamarOrdenamiento(arr, "selectionSort")
-    if (!check) {return}
-
-    // INSERTION SORT
-    check = llamarOrdenamiento(arr, "insertionSort")
-    if (!check) {return}
-
-    // BUBBLE SORT
-    check = llamarOrdenamiento(arr, "bubbleSort")
-    if (!check) {return}
-}
 /**
  * Verifica si el arreglo está ordenado en orden ascendente.
  * Pre-condiciones: arr no es nulo.
@@ -182,9 +234,9 @@ fun <T: Comparable<T>> estaOrdenAscendente (arr:Array<T>):Boolean{
  * @param arr El arreglo a ordenar.
  * @param algoritmo El nombre del algoritmo de ordenamiento ("selectionSort", "insertionSort", "bubbleSort").
  * @param T Tipo genérico que debe ser Comparable.
- * @return Boolean indicando si el algoritmo fue exitoso o no.
+ * @return Double indicando el tiempo de ejecución del algoritmo.
  */
-fun <T: Comparable<T>> llamarOrdenamiento(arr:Array<T>, algoritmo: String):Boolean {
+fun <T: Comparable<T>> llamarOrdenamiento(arr:Array<T>, algoritmo: String):Double {
 
     var tempArr = arr.copyOf()
     
@@ -195,6 +247,9 @@ fun <T: Comparable<T>> llamarOrdenamiento(arr:Array<T>, algoritmo: String):Boole
         "ss" -> tempArr = selectionSort(tempArr)
         "is" -> tempArr = insertionSort(tempArr)
         "bs" -> tempArr = bubbleSort(tempArr)
+        "mb" -> tempArr = mergesortInsertion(tempArr)
+        "ms" -> tempArr = mergesort(tempArr)
+        "mi" -> tempArr = mergesortIterativo(tempArr)
     }
 
     // Tiempo de fin de la función de ordenamiento
@@ -203,15 +258,9 @@ fun <T: Comparable<T>> llamarOrdenamiento(arr:Array<T>, algoritmo: String):Boole
     //Tiempo de ejecución del ordenamiento (nanosegundos)
     val time = endTime - startTime
 
-    println("ALGORITMO: $algoritmo")
-    println("Secuencia ordenada: ${tempArr.joinToString(", ")}")
-
-    if (estaOrdenAscendente(tempArr)) {
-        println("La secuencia está ordenada en orden ascendente")
-    } else {
-        println("La secuencia no está ordenada en orden ascendente, abortando ejecución")
-        return false
+    if (!estaOrdenAscendente(tempArr)) {
+        println("Error: ¡$algoritmo falló para N = ${tempArr.size}!")
+        System.exit(1)
     }
-    println("Tiempo de ejecución: $time ns")
-    return true
+    return time.toDouble()/1_000_000_000.0
 }

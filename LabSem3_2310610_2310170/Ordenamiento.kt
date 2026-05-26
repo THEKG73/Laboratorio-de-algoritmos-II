@@ -78,10 +78,15 @@ fun <T : Comparable<T>> selectionSort(arr: Array<T>): Array<T> {
         un arreglo del mismo tipo ordenado ascendentemente.
  */
 fun <T: Comparable<T>> ordenaDos(arr: Array<T>): Array<T> {
+    if (arr.size != 2) {
+        println("Error: La función ordenaDos solo acepta arreglos de dos elementos.")
+        System.exit(1)
+    }
+
     if (arr[0]>arr[1]){
         val temp = arr[0]
         arr[0]=arr[1]
-        arr[1]=arr[0]
+        arr[1]=temp
     }
     return arr
 }
@@ -96,6 +101,11 @@ fun <T: Comparable<T>> ordenaDos(arr: Array<T>): Array<T> {
         un arreglo del mismo tipo ordenado ascendentemente.
  */
 fun <T: Comparable<T>> ordenaTres(arr: Array<T>): Array<T> {
+    if (arr.size != 3) {
+        println("Error: La función ordenaTres solo acepta arreglos de tres elementos.")
+        System.exit(1)
+    }
+
     if (arr[0]>arr[1]){
         val temp = arr[0]
         arr[0]=arr[1]
@@ -128,6 +138,11 @@ fun <T: Comparable<T>> ordenaTres(arr: Array<T>): Array<T> {
         un arreglo del mismo tipo ordenado ascendentemente.
  */
 fun <T: Comparable<T>> ordenaCuatro(arr: Array<T>): Array<T> {
+    if (arr.size != 4) {
+        println("Error: La función ordenaCuatro solo acepta arreglos de cuatro elementos.")
+        System.exit(1)
+    }
+
     if (arr[0]>arr[1]){
         val temp = arr[0]
         arr[0]=arr[1]
@@ -157,6 +172,107 @@ fun <T: Comparable<T>> ordenaCuatro(arr: Array<T>): Array<T> {
         val temp = arr[0]
         arr[0]=arr[1]
         arr[1]=temp
+    }
+    return arr
+}
+
+fun <T: Comparable<T>> merge(U: Array<T>, V: Array<T>, A: Array<T>): Array<T> {
+    var i = 0 ; var j = 0
+    for (k in 0 until A.size) {
+        if (i < U.size && (j >= V.size || U[i] <= V[j])) {
+            A[k] = U[i]
+            i++
+        }
+        else {
+            A[k] = V[j]
+            j++
+        }
+    }
+    return A
+}
+
+fun <T: Comparable<T>> mergesortInsertion(arr: Array<T>): Array<T> {
+    when (arr.size) {
+        0, 1 -> return arr
+        2 -> return ordenaDos(arr)
+        3 -> return ordenaTres(arr)
+        4 -> return ordenaCuatro(arr)
+        in 5..100 -> return insertionSort(arr)
+    }
+    val U : Array<T> = arr.copyOfRange(0, arr.size/2)
+    val V : Array<T> = arr.copyOfRange(arr.size/2, arr.size)
+    mergesortInsertion(U)
+    mergesortInsertion(V)
+    //Hacemos Merge de U y V
+    merge(U, V, arr)
+    return arr
+}
+
+fun <T: Comparable<T>> mergesort(arr: Array<T>): Array<T> {
+    return mergesortEjecucion(arr, 0, arr.size - 1)
+}
+
+fun <T: Comparable<T>> mergesortEjecucion(arr: Array<T>, p: Int, r: Int): Array<T> {
+    if (p < r) {
+        val q = (p + r) / 2
+        mergesortEjecucion(arr, p, q)
+        mergesortEjecucion(arr, q + 1, r)
+
+        val arrTemporal = arr.copyOfRange(p, r + 1)
+        merge(arr.copyOfRange(p, q + 1), arr.copyOfRange(q + 1, r + 1), arrTemporal)
+        for (i in arrTemporal.indices) {
+            arr[p + i] = arrTemporal[i]
+        }
+    }
+    return arr
+}
+
+
+
+fun <T: Comparable<T>> mergesortIterativo(arr: Array<T>): Array<T> {
+    val n = arr.size
+    var k = 1
+    while (k < n) {
+        var a = 0
+        var b = k
+        var c = kotlin.math.min(2*k, n)
+        while (b < n) {
+            var p = a
+            var q = b
+            var r = a
+            val z = @Suppress("UNCHECKED_CAST") (Array<Any?>(c-a) { null } as Array<T>)
+            while (p != b && q != c) {
+                if (arr[p] <= arr[q]) {
+                    z[r - a] = arr[p]
+                    p++
+                    r++
+                }
+                else {
+                    z[r - a] = arr[q]
+                    q++
+                    r++
+                }
+            }
+            while (p != b) {
+                z[r - a] = arr[p]
+                p++
+                r++
+            }
+            while (q != c) {
+                z[r - a] = arr[q]
+                q++
+                r++
+            }
+            r = a
+            while (r != c) {
+                arr[r] = z[r - a]
+                r++
+            }
+            a += 2*k
+            b += 2*k;
+            c = kotlin.math.min(c + 2*k, n)
+        }
+        k*= 2
     }
     return arr
 }
