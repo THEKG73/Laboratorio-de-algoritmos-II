@@ -1,5 +1,3 @@
-// Importación de librería para medir el tiempo de ejecución
-import kotlin.system.measureTimeMillis
 // Importación de librería para obtener numeros reales aleatorios
 import kotlin.random.Random
 
@@ -29,8 +27,9 @@ fun main(args: Array<String>) {
     val sequence = args[1].trim()
     val intentos = args[2].trim().toInt()
     val graphName = args[3].trim()
+    val partes = args[4].split(",")
     val tamaños: Array<Int> = try {
-        args[4].split(",").map { it.trim().toInt() }.toTypedArray()
+        Array<Int>(partes.size) { i -> partes[i].trim().toInt() }
     } catch (e: Exception) {
         println("Error: Los tamaños deben ser enteros y deben ingresarse en formato correcto, ejemplo: 200,300,400")
         System.exit(1)
@@ -86,12 +85,13 @@ fun main(args: Array<String>) {
                     val min = tiemposDeIntentos.minOrNull() ?: 0.0
                     val max = tiemposDeIntentos.maxOrNull() ?: 0.0
                     val avg = tiemposDeIntentos.average()
+                    val desviacionEstandar = calcularDesviacionEstandar(tiemposDeIntentos, avg)
 
                     minTimes[indiceMuestra] = min
                     maxTimes[indiceMuestra] = max
                     averageTimes[indiceMuestra] = avg
 
-                    println("[$algo] N = ${tamaños[n]} -> Avg: ${String.format("%.5f", avg)}s (Min: ${String.format("%.5f", min)}s, Max: ${String.format("%.5f", max)}s)")
+                    println("[$algo] N = ${tamaños[n]} -> Avg: ${String.format("%.5f", avg)}s, DesvSt: ${String.format("%.5f", desviacionEstandar)}s, (Min: ${String.format("%.5f", min)}s, Max: ${String.format("%.5f", max)}s)")
                     indiceMuestra++
                 }
             }
@@ -171,12 +171,13 @@ fun main(args: Array<String>) {
                     val min = tiemposDeIntentos.minOrNull() ?: 0.0
                     val max = tiemposDeIntentos.maxOrNull() ?: 0.0
                     val avg = tiemposDeIntentos.average()
+                    val desviacionEstandar = calcularDesviacionEstandar(tiemposDeIntentos, avg)
 
                     minTimes[indiceMuestra] = min
                     maxTimes[indiceMuestra] = max
                     averageTimes[indiceMuestra] = avg
 
-                    println("[$algo] N = ${tamaños[n]} -> Avg: ${String.format("%.5f", avg)}s (Min: ${String.format("%.5f", min)}s, Max: ${String.format("%.5f", max)}s)")
+                    println("[$algo] N = ${tamaños[n]} -> Avg: ${String.format("%.5f", avg)}s, DesvSt: ${String.format("%.5f", desviacionEstandar)}s, (Min: ${String.format("%.5f", min)}s, Max: ${String.format("%.5f", max)}s)")
                     indiceMuestra++
                 }
             }
@@ -224,6 +225,15 @@ fun <T: Comparable<T>> estaOrdenAscendente (arr:Array<T>):Boolean{
         }
     }
     return true
+}
+
+fun calcularDesviacionEstandar(tiempos: DoubleArray, promedio: Double): Double {
+    if (tiempos.size <= 1) return 0.0
+    var sumaCuadrados = 0.0
+    for (t in tiempos) {
+        sumaCuadrados += (t - promedio) * (t - promedio)
+    }
+    return kotlin.math.sqrt(sumaCuadrados / tiempos.size)
 }
 
 /**
