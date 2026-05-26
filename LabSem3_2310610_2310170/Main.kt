@@ -1,7 +1,4 @@
 /**
- * Punto de entrada principal para la ejecución de pruebas empíricas de rendimiento
- * sobre los algoritmos de ordenamiento Bubble Sort e Insertion Sort.
- *
  * La función recibe desde la línea de comandos la información para generar secuencias de datos aleatorios, 
  * mide los tiempos de ejecución en nanosegundos tras múltiples intentos, calcula mínimo, máximo y promedio 
  * de tiempo de ejecución y finalmente exporta una gráfica comparativa de los resultados.
