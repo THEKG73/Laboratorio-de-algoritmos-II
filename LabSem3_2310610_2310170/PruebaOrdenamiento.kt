@@ -2,11 +2,31 @@
 import kotlin.random.Random
 
 /**
- * Función principal que analiza los argumentos de línea de comandos y ejecuta algoritmos de ordenamiento
- * en una secuencia generada.
- * Pre-condiciones: args debe contener -s y -n con valores válidos.
- * @param args Argumentos de línea de comandos: -s <tipo_secuencia> -n <tamaño>
- * @return Unit (nada).
+ * Analiza los argumentos pasados por la línea de comandos, genera las estructuras de datos 
+ * bajo las configuraciones de secuencia solicitadas y coordina las pruebas de rendimiento empíricas.
+ *
+ * Precondiciones:
+ * - El arreglo [args] debe contener obligatoriamente al menos 5 elementos válidos.
+ * - `args[0]` debe ser una cadena con identificadores de algoritmos separados por comas.
+ * - `args[1]` debe ser un tipo de secuencia soportado.
+ * - `args[2]` debe representar un número entero estrictamente positivo.
+ * - `args[4]` debe ser una lista de tamaños separados por comas, sin duplicados y en orden estrictamente ascendente.
+ *
+ * Postcondiciones:
+ * - Se ejecutan `intentos` de ordenamiento para cada algoritmo y tamaño especificado.
+ * - Imprime en la consola estándar la media (`Avg`), desviación estándar (`DesvSt`), valores mínimos (`Min`) y máximos (`Max`) en segundos.
+ * - Si `graphName` es distinto de `"SinGrafico.png"`, se exporta y persiste un archivo de imagen con la gráfica en el directorio raíz (`.`).
+ * - En caso de detectar fallas en las validaciones, formatos incorrectos o errores de ordenamiento, el programa aborta inmediatamente la ejecución.
+ *
+ * @param args Argumentos de la línea de comandos pasados por consola:
+ * - `args[0]`: Algoritmos de ordenamiento a evaluar separados por comas (códigos válidos: `ss`, `is`, `bs`, `mb`, `ms`, `mi`).
+ * - `args[1]`: Identificador del tipo de secuencia de datos a generar para las pruebas.
+ * - `args[2]`: Cantidad de intentos o repeticiones numéricas a realizar por muestra.
+ * - `args[3]`: Nombre del archivo de salida para almacenar la gráfica o `"SinGrafico.png"`.
+ * - `args[4]`: Tamaños de entrada ($N$) delimitados por comas (ej. `"100,200,300"`).
+ * @return Esta función no devuelve ningún valor (`Unit`).
+ * @throws NumberFormatException Si los intentos o los tamaños de muestra no pueden convertirse a un valor de tipo [Int].
+ * @throws SystemExitException (A través de `System.exit(1)`) Si no se cumple alguna precondición lógica o un algoritmo falla en ordenar los datos.
  */
 fun main(args: Array<String>) {
 
