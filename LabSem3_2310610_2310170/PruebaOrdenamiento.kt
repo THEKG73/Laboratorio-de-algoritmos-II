@@ -248,6 +248,22 @@ fun <T: Comparable<T>> estaOrdenAscendente (arr:Array<T>):Boolean{
     return true
 }
 
+/**
+ * Calcula la desviación estándar de un conjunto de tiempos registrados.
+ *
+ * Calcula la desviación estándar de los tiempos de ejecución para medir qué tan dispersos están respecto al promedio.
+ *
+ * Precondiciones:
+ * - El arreglo [tiempos] no debe ser nulo.
+ * - El valor del [promedio] debe corresponder con la media aritmética real calculada previamente sobre el arreglo.
+ *
+ * Postcondiciones:
+ * - El arreglo original no se modifica.
+ *
+ * @param tiempos Estructura de tipo [DoubleArray] contentiva de los tiempos individuales medidos en segundos.
+ * @param promedio Valor numérico real que representa la media de los datos del arreglo.
+ * @return Un valor de tipo [Double] con la desviación estándar calculada. Retorna `0.0` si el arreglo contiene $1$ o menos muestras.
+ */
 fun calcularDesviacionEstandar(tiempos: DoubleArray, promedio: Double): Double {
     if (tiempos.size <= 1) return 0.0
     var sumaCuadrados = 0.0
