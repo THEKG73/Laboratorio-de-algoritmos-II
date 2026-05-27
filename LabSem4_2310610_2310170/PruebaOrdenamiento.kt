@@ -279,7 +279,7 @@ fun calcularDesviacionEstandar(tiempos: DoubleArray, promedio: Double): Double {
  * Post-condiciones: Si el algoritmo no falla, se imprime en consola toda la información de
  * ejecución del algoritmo, incluyendo el tiempo de ejecución y la secuencia ordenada.
  * @param arr El arreglo a ordenar.
- * @param algoritmo El nombre del algoritmo de ordenamiento ("selectionSort", "insertionSort", "bubbleSort").
+ * @param algoritmo El nombre del algoritmo de ordenamiento ("selectionSort", "insertionSort", "bubbleSort",...).
  * @param T Tipo genérico que debe ser Comparable.
  * @return Double indicando el tiempo de ejecución del algoritmo.
  */
@@ -297,6 +297,7 @@ fun <T: Comparable<T>> llamarOrdenamiento(arr:Array<T>, algoritmo: String):Doubl
         "mb" -> tempArr = mergesortInsertion(tempArr)
         "ms" -> tempArr = mergesort(tempArr)
         "mi" -> tempArr = mergesortIterativo(tempArr)
+        "hs" -> tempArr = heapsort(tempArr)
     }
 
     // Tiempo de fin de la función de ordenamiento
