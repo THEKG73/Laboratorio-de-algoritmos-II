@@ -397,7 +397,7 @@ fun <T: Comparable<T>> mergesortIterativo(arr: Array<T>): Array<T> {
             var p = a
             var q = b
             var r = a
-            val z = @Suppress("UNCHECKED_CAST") (Array<Any?>(c-a) { null } as Array<T>)
+            val z = arr.copyOfRange(a, c)
             while (p != b && q != c) {
                 if (arr[p] <= arr[q]) {
                     z[r - a] = arr[p]
