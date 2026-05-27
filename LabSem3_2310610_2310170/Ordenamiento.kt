@@ -3,14 +3,23 @@
  * Contiene implementaciones de algoritmos de ordenamiento necesarios para el laboratorio.
  */
 
- /** 
-  * 1. Bubble Sort: La funcion recorre el arreglo desde el ultimo elemento hasta el primero, en cada iteracion se verifica si el 
-                    elemento anterior es mayor al elemento actual, en caso de serlo se intercambian las posiciones de ambos 
-                    elementos, asi con cada uno hasta llegar al primer elemento del arreglo, como dicho elemento se garantiza
-                    que es menor o igual a cada elemento de la lista, para la siguiente iteracion no se tomara en cuenta.
-  * * Parámetros:
-        La funcion recibe un array desordenado de un tipo comparable, para este laboratorio sera entero o double, y devuelve un 
-        arreglo del mismo tipo ordenado ascendentemente.
+/**
+ * Ordena un arreglo mediante el algoritmo de ordenamiento Bubble Sort.
+ *
+ * Recorre el arreglo de derecha a izquierda comparando elementos adyacentes y flotando
+ * el valor menor hacia las primeras posiciones. En cada iteración completa, el elemento más
+ * pequeño del subarreglo evaluado queda fijado en su posición definitiva.
+ *
+ * Precondiciones:
+ * - El objeto [arr] no debe ser nulo.
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El arreglo original [arr] queda ordenado en forma ascendente.
+ *
+ * @param T Tipo genérico comparable de los elementos contenidos en el arreglo.
+ * @param arr Arreglo desordenado de elementos de tipo [T].
+ * @return El mismo arreglo [arr] ordenado ascendentemente.
  */
 fun <T : Comparable<T>> bubbleSort(arr: Array<T>): Array<T> {
     for(i in 0 until arr.size) {
@@ -26,13 +35,22 @@ fun <T : Comparable<T>> bubbleSort(arr: Array<T>): Array<T> {
  }
 
 /**
- * 2. Insertion Sort: La funcion recorre el arreglo comenzando desde el segundo elemento hasta el ultimo, se selecciona un elemento
-                      y se recorre el arreglo hacia atras para ver en cual posicion va dicho elemento, observemos que desde el 
-                      elemento escogido hacia atras estara ordenada, se van rodando los elementos a la derecha para hacer espacio
-                      al elemento a insertar y no perder los datos.
- * * Parámetros:
-        La funcion recibe un array desordenado de un tipo comparable, para este laboratorio sera entero o double, y devuelve un 
-        arreglo del mismo tipo ordenado ascendentemente.
+ * Ordena un arreglo mediante el algoritmo de ordenamiento por inserción (Insertion Sort).
+ *
+ * Divide virtualmente el arreglo en una sección ordenada y una desordenada. Toma los elementos
+ * de la sección desordenada uno a uno y los desplaza hacia atrás hasta insertarlos en la posición 
+ * correcta dentro de la sección ordenada.
+ *
+ * Precondiciones:
+ * - El objeto [arr] no debe ser nulo.
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El arreglo original [arr] queda ordenado en forma ascendente.
+ *
+ * @param T Tipo genérico comparable de los elementos contenidos en el arreglo.
+ * @param arr Arreglo desordenado de elementos de tipo [T].
+ * @return El mismo arreglo [arr] ordenado ascendentemente.
  */
 fun <T : Comparable<T>> insertionSort(arr: Array<T>): Array<T> {
     for (i in 1 until (arr.size)) {
@@ -48,12 +66,21 @@ fun <T : Comparable<T>> insertionSort(arr: Array<T>): Array<T> {
 }
 
 /**
- * 3. Selection Sort: La funcion recorre el arreglo desde el primer elemento hasta el ultimo, busca cual es el menor de todos
-                      los elementos e intercambia ese elemento con el que estaba inicialmente en dicha posicion, asi se 
-                      garantiza que los elementos mas pequeños estaran a la derecha y los mayores a la izquierda.
- * * Parámetros:
-        La funcion recibe un array desordenado de un tipo comparable, para este laboratorio sera entero o double, y devuelve 
-        un arreglo del mismo tipo ordenado ascendentemente.
+ * Ordena un arreglo mediante el algoritmo de ordenamiento por selección (Selection Sort).
+ *
+ * Busca de forma lineal el elemento mínimo del subarreglo desordenado y lo intercambia con 
+ * el elemento que se encuentra al principio de dicha sección. Repite el proceso hasta llegar al ultimo elemento.
+ *
+ * Precondiciones:
+ * - El objeto [arr] no debe ser nulo.
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El arreglo original [arr] queda ordenado en forma ascendente.
+ * 
+ * @param T Tipo genérico comparable de los elementos contenidos en el arreglo.
+ * @param arr Arreglo desordenado de elementos de tipo [T].
+ * @return El mismo arreglo [arr] ordenado ascendentemente.
  */
 fun <T : Comparable<T>> selectionSort(arr: Array<T>): Array<T> {
     for (i in 0 until (arr.size - 1)) {
@@ -71,11 +98,22 @@ fun <T : Comparable<T>> selectionSort(arr: Array<T>): Array<T> {
 }
 
 /**
- * 4. ordenaDos: La funcion verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto
-                 se intercambian los elementos.
- * * Parámetros:
-        La funcion recibe un array de dos elementos de un tipo comparable, para este laboratorio sera entero o double, y devuelve 
-        un arreglo del mismo tipo ordenado ascendentemente.
+ * Ordena por comparación directa un arreglo que contiene dos elementos.
+ *
+ * Evalúa si el primer elemento es mayor que el segundo, en caso de ser así, se 
+ * intercambian las posiciones de los elementos.
+ *
+ * Precondiciones:
+ * - El arreglo [arr] debe tener un tamaño de 2 elementos (`arr.size == 2`).
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El arreglo original queda ordenado de manera que `arr[0] <= arr[1]`.
+ *
+ * @param T Tipo genérico comparable de los elementos.
+ * @param arr Arreglo de tamaño fijo igual a dos.
+ * @return El mismo arreglo [arr] ordenado de forma ascendente.
+ * @throws SystemExitException Detiene la ejecución si el tamaño del arreglo es distinto a 2.
  */
 fun <T: Comparable<T>> ordenaDos(arr: Array<T>): Array<T> {
     if (arr.size != 2) {
@@ -92,13 +130,26 @@ fun <T: Comparable<T>> ordenaDos(arr: Array<T>): Array<T> {
 }
 
 /**
- * 5. ordenaTres: La funcion verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto
-                  se intercambian los elementos; después se verifica si el segundo elemento es mayor al tercero, en caso de que
-                  sea cierto se intercambian; por último se verifica si el primer elemento del arreglo es mayor al segundo elemento, 
-                  en caso de que sea cierto se intercambian los elementos.
- * * Parámetros:
-        La funcion recibe un array de tres elementos de un tipo comparable, para este laboratorio sera entero o double, y devuelve 
-        un arreglo del mismo tipo ordenado ascendentemente.
+ * Ordena por comparación directa un arreglo que contiene tres elementos.
+ *
+ * La funcion verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto
+ * se intercambian las posiciones de los elementos; después se verifica si el segundo elemento es mayor al tercero, 
+ * en caso de que sea cierto se intercambian; luego se verifica si el primer elemento del arreglo es mayor al segundo 
+ * elemento, en caso de que sea cierto se intercambian los elementos; seguidamente se verifica si el segundo elemento 
+ * es mayor al tercero, en caso de que sea cierto se intercambian; por último se verifica si el primer elemento del 
+ * arreglo es mayor al segundo elemento, en caso de que sea cierto se intercambian los elementos.
+
+ * Precondiciones:
+ * - El arreglo [arr] debe tener un tamaño de 3 elementos (`arr.size == 3`).
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El arreglo original queda ordenado de manera que `arr[0] <= arr[1] <= arr[2]`.
+ *
+ * @param T Tipo genérico comparable de los elementos.
+ * @param arr Arreglo de tamaño fijo igual a tres.
+ * @return El mismo arreglo [arr] ordenado de forma ascendente.
+ * @throws SystemExitException Detiene la ejecución si el tamaño del arreglo es distinto a 3.
  */
 fun <T: Comparable<T>> ordenaTres(arr: Array<T>): Array<T> {
     if (arr.size != 3) {
@@ -124,18 +175,29 @@ fun <T: Comparable<T>> ordenaTres(arr: Array<T>): Array<T> {
     return arr
 }
 
-/**
- * 6. ordenaCuatro: La funcion verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto
-                    se intercambian los elementos; después se verifica si el segundo elemento es mayor al tercero, en caso de que
-                    sea cierto se intercambian; posteriormente se verifica si el tercer elemento del arreglo es mayor al cuarto 
-                    elemento, en caso de que sea cierto se intercambian los elementos; luego se verifica si el primer elemento del 
-                    arreglo es mayor al segundo elemento, en caso de que sea cierto se intercambian los elementos; seguidamente se 
-                    verifica si el segundo elemento es mayor al tercero, en caso de que sea cierto se intercambian; por último 
-                    se verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto se 
-                    intercambian los elementos.
- * * Parámetros:
-        La funcion recibe un array de cuatro elementos de un tipo comparable, para este laboratorio sera entero o double, y devuelve 
-        un arreglo del mismo tipo ordenado ascendentemente.
+ /**
+ * Ordena por comparación directa un arreglo que contiene cuatro elementos.
+ *
+ * La funcion verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto
+ * se intercambian los elementos; después se verifica si el segundo elemento es mayor al tercero, en caso de que
+ * sea cierto se intercambian; posteriormente se verifica si el tercer elemento del arreglo es mayor al cuarto 
+ * elemento, en caso de que sea cierto se intercambian los elementos; luego se verifica si el primer elemento del 
+ * arreglo es mayor al segundo elemento, en caso de que sea cierto se intercambian los elementos; seguidamente se 
+ * verifica si el segundo elemento es mayor al tercero, en caso de que sea cierto se intercambian; por último 
+ * se verifica si el primer elemento del arreglo es mayor al segundo elemento, en caso de que sea cierto se 
+ * intercambian los elementos.
+
+ * Precondiciones:
+ * - El arreglo [arr] debe tener un tamaño de 4 elementos (`arr.size == 4`).
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El arreglo original queda ordenado de manera que `arr[0] <= arr[1] <= arr[2] <= arr[3]`.
+ *
+ * @param T Tipo genérico comparable de los elementos.
+ * @param arr Arreglo de tamaño fijo igual a cuatro.
+ * @return El mismo arreglo [arr] ordenado de forma ascendente.
+ * @throws SystemExitException Detiene la ejecución si el tamaño del arreglo es distinto a 4.
  */
 fun <T: Comparable<T>> ordenaCuatro(arr: Array<T>): Array<T> {
     if (arr.size != 4) {
@@ -176,6 +238,26 @@ fun <T: Comparable<T>> ordenaCuatro(arr: Array<T>): Array<T> {
     return arr
 }
 
+/**
+ * Combina dos subarreglos ordenados de manera independiente en un único arreglo ordenado.
+ *
+ * Utiliza evalua de manera secuencial las posiciones más bajas de ambos subarreglos dados 
+ * ([U] y [V]), insertando el menor elemento en el arreglo destino [A].
+ *
+ * Precondiciones:
+ * - Los arreglos [U] y [V] deben estar previamente ordenados de forma ascendente ascendente.
+ * - La suma de las longitudes de los subarreglos debe ser igual o menor a la capacidad del destino (`U.size + V.size <= A.size`).
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El arreglo destino [A] se reescribe de forma ordenada basándose en la intercalación de los elementos de [U] y [V].
+ *
+ * @param T Tipo genérico comparable de los elementos.
+ * @param U Primer subarreglo ordenado de forma ascendente.
+ * @param V Segundo subarreglo ordenado de forma ascendente.
+ * @param A Arreglo de destino encargado de recibir la fusión unificada de elementos.
+ * @return El arreglo destino [A] con la combinación final ordenada.
+ */
 fun <T: Comparable<T>> merge(U: Array<T>, V: Array<T>, A: Array<T>): Array<T> {
     var i = 0 ; var j = 0
     for (k in 0 until A.size) {
@@ -191,6 +273,29 @@ fun <T: Comparable<T>> merge(U: Array<T>, V: Array<T>, A: Array<T>): Array<T> {
     return A
 }
 
+/**
+ * Algoritmo híbrido de ordenamiento por mezcla (Mergesort e inserción).
+ *
+ * Emplea la técnica "divide y vencerás". Optimiza el rendimiento interceptando casos base 
+ * pequeños (N <= 4) llamando a funciones de comparaciones fijas, y tamaños moderados (5 <= N <= 100) 
+ * resolviéndolos vía insertionSort.
+ *
+ * Precondiciones:
+ * - El objeto [arr] no debe ser nulo.
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - Los elementos del arreglo original quedan completamente ordenados de manera ascendente.
+ *
+ * @param T Tipo genérico comparable de los elementos.
+ * @param arr Arreglo dinámico que se desea ordenar.
+ * @return El mismo arreglo [arr] en orden ascendente.
+ * @see ordenaDos
+ * @see ordenaTres
+ * @see ordenaCuatro
+ * @see insertionSort
+ * @see merge
+ */
 fun <T: Comparable<T>> mergesortInsertion(arr: Array<T>): Array<T> {
     when (arr.size) {
         0, 1 -> return arr
@@ -208,10 +313,46 @@ fun <T: Comparable<T>> mergesortInsertion(arr: Array<T>): Array<T> {
     return arr
 }
 
+/**
+ * Punto de entrada para el ordenamiento por Merge Sort.
+ *
+ * Inicializa el proceso del merge sort especificando su tamaño.
+ *
+ * Precondiciones:
+ * - El objeto [arr] no debe ser nulo.
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El arreglo original se modifica para obtener el mismo arreglo en un orden ascendente.
+ *
+ * @param T Tipo genérico de datos comparables.
+ * @param arr Arreglo inicial desordenado.
+ * @return El mismo arreglo [arr] completamente ordenado.
+ * @see mergesortEjecucion
+ */
 fun <T: Comparable<T>> mergesort(arr: Array<T>): Array<T> {
     return mergesortEjecucion(arr, 0, arr.size - 1)
 }
 
+/**
+ * Función recursiva encargada de ejecutar la lógica de Merge Sort.
+ *
+ * Divide el rango delimitado por [p] y [r] calculando un punto medio [q], se llama recursivamente 
+ * para ambas mitades y combina los resultados.
+ *
+ * Precondiciones:
+ * - Los límites dados deben ser válidos con respecto al índice del arreglo (0 <= p <= r < arr.size).
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El segmento comprendido desde el índice [p] hasta el índice [r] queda ordenado ascendentemente.
+ *
+ * @param T Tipo genérico de datos comparables.
+ * @param arr Arreglo que esta siendo manipulado.
+ * @param p Índice de inicio del segmento actual a procesar.
+ * @param r Índice final del segmento actual a procesar.
+ * @return El arreglo [arr] modificado dentro del rango especificado [p, r].
+ */
 fun <T: Comparable<T>> mergesortEjecucion(arr: Array<T>, p: Int, r: Int): Array<T> {
     if (p < r) {
         val q = (p + r) / 2
@@ -227,8 +368,24 @@ fun <T: Comparable<T>> mergesortEjecucion(arr: Array<T>, p: Int, r: Int): Array<
     return arr
 }
 
-
-
+/**
+ * Ordena un arreglo utilizando la estrategia Merge Sort de manera puramente iterativa.
+ *
+ * Elimina la pila de llamadas recursivas procesando el arreglo en etapas sucesivas mediante bloques 
+ * de tamaño variable `k`, duplicando su tamaño en cada iteración completa (k = 1, 2, 4, 8,...)
+ * y mezclándolos de forma local.
+ *
+ * Precondiciones:
+ * - El objeto [arr] no debe ser nulo de forma estructural.
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El arreglo de entrada ordenado de forma ascendente.
+ *
+ * @param T Tipo genérico de datos comparables.
+ * @param arr Arreglo inicial que se va a ordenar.
+ * @return El mismo arreglo [arr] ordenado ascendentemente.
+ */
 fun <T: Comparable<T>> mergesortIterativo(arr: Array<T>): Array<T> {
     val n = arr.size
     var k = 1
