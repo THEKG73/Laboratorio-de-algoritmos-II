@@ -433,3 +433,55 @@ fun <T: Comparable<T>> mergesortIterativo(arr: Array<T>): Array<T> {
     }
     return arr
 }
+
+
+fun <T: Comparable<T>> heapsort(arr: Array<T>): Array<T>{
+    //Comportamiento solicitado en el laboratorio
+    when (arr.size) {
+        0, 1 -> return arr
+        2 -> return ordenaDos(arr)
+        3 -> return ordenaTres(arr)
+        4 -> return ordenaCuatro(arr)
+        in 5..100 -> return insertionSort(arr)
+    }
+    /*Para no crear una clase que contenga la propiedad heapSize la declaramos
+      como variable y la solicitamos en maxHeapify*/
+    var heapSize = arr.size
+    //BuildMaxHeap del libro INTRODUCTION TO ALGORITHMS
+    for (i in (arr.size/2 - 1) downTo 0){
+        maxHeapify(arr,i,heapSize)
+    }
+
+    //Inicio del heapsort del libro
+    for (i in (arr.size -1) downTo 1){
+        val temp = arr[0]
+        arr[0]=arr[i]
+        arr[i]=temp
+        heapSize -= 1
+        maxHeapify(arr,0, heapSize)
+    }
+
+    return arr
+}
+
+
+fun <T: Comparable<T>> maxHeapify(arr: Array<T>, i:Int, heapSize:Int){
+    var largest: Int
+    //le sumamos 1 a las variables ya que la raiz es 0 y no 1 como en el libro
+    val l = 2*i + 1
+    val r = 2*i + 2
+    if (l < heapSize && arr[l] > arr[i]){
+        largest = l
+    } else {largest = i}
+
+    if (r < heapSize && arr[r]>arr[largest]){
+        largest = r
+    }
+    if (largest != i){
+        val temp = arr[i]
+        arr[i]=arr[largest]
+        arr[largest]=temp
+
+        maxHeapify(arr,largest,heapSize)
+    }
+}
