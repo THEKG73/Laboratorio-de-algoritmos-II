@@ -1,4 +1,4 @@
-# Laboratorio 2: Mergesort y Visualización
+# Laboratorio 3: Heapsort
 
 Este proyecto contiene la ampliación de la librería de ordenamiento `Ordenamiento.kt` junto con un programa cliente de pruebas (`PruebaOrdenamiento.kt`) encargado de evaluar empíricamente el rendimiento de diversos algoritmos de ordenamiento bajo diferentes configuraciones de secuencias de datos.
 
