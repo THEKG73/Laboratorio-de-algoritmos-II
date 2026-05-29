@@ -2,7 +2,7 @@
 
 Este proyecto contiene la ampliación de la librería de ordenamiento `Ordenamiento.kt` junto con un programa cliente de pruebas (`PruebaOrdenamiento.kt`) encargado de evaluar empíricamente el rendimiento de diversos algoritmos de ordenamiento bajo diferentes configuraciones de secuencias de datos.
 
-## Nuevas Funciones Añadidas
+## Funciones adicionales
 
 Para optimizar el rendimiento con conjuntos de datos reducidos y servir de base para variantes avanzadas de ordenamiento, se incorporaron tres funciones especializadas en arreglos de tamaño fijo. Cada una de ellas emplea un número óptimo y controlado de comparaciones directas.
 
