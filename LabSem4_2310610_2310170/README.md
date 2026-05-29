@@ -1,5 +1,7 @@
 # Laboratorio 3: Heapsort
-
+### Kevin Gomes, carnet #23-10170
+### David Garrido, carnet #23-10610
+\
 Este proyecto contiene la ampliación de la librería de ordenamiento `Ordenamiento.kt` junto con un programa cliente de pruebas (`PruebaOrdenamiento.kt`) encargado de evaluar empíricamente el rendimiento de diversos algoritmos de ordenamiento bajo diferentes configuraciones de secuencias de datos.
 
 ## Funciones adicionales
