@@ -434,7 +434,27 @@ fun <T: Comparable<T>> mergesortIterativo(arr: Array<T>): Array<T> {
     return arr
 }
 
-
+/**
+ * Ordena un arreglo utilizando el algoritmo Heap Sort.
+ *
+ * Construye primero un montón máximo (max-heap) sobre el arreglo y luego extrae
+ * repetidamente el elemento mayor hacia el final del arreglo, reduciendo el tamaño
+ * del montón en cada paso.
+ *
+ * Para arreglos pequeños (0 a 4 elementos) y de tamaño moderado (5 a 100 elementos),
+ * utiliza los procedimientos solicitados en el laboratorio.
+ *
+ * Precondiciones:
+ * - El objeto [arr] no debe ser nulo.
+ * - El tipo [T] debe ser comparable consigo mismo para permitir su ordenamiento.
+ *
+ * Postcondiciones:
+ * - El arreglo original [arr] queda ordenado en forma ascendente.
+ *
+ * @param T Tipo genérico de datos comparables.
+ * @param arr Arreglo inicial desordenado.
+ * @return El mismo arreglo [arr] ordenado ascendentemente.
+ */
 fun <T: Comparable<T>> heapsort(arr: Array<T>): Array<T>{
     //Comportamiento solicitado en el laboratorio
     when (arr.size) {
@@ -464,7 +484,26 @@ fun <T: Comparable<T>> heapsort(arr: Array<T>): Array<T>{
     return arr
 }
 
-
+/**
+ * Restablece la propiedad de montón máximo para el subárbol con raíz en el índice [i].
+ *
+ * Compara el nodo en [i] con sus hijos izquierdo y derecho, y si alguno de ellos es mayor,
+ * intercambia el nodo con el mayor de los hijos y se aplica recursivamente sobre el subárbol afectado.
+ *
+ * Precondiciones:
+ * - El objeto [arr] no debe ser nulo.
+ * - El índice [i] debe pertenecer a un subárbol dentro de [heapSize].
+ * - [heapSize] debe ser un tamaño válido del montón, menor o igual a `arr.size`.
+ * - El tipo [T] debe ser comparable consigo mismo para permitir la comparación entre elementos.
+ *
+ * Postcondiciones:
+ * - El subárbol con raíz en [i] cumple la propiedad de max-heap dentro del rango [0, heapSize).
+ *
+ * @param T Tipo genérico de datos comparables.
+ * @param arr Arreglo que contiene el montón.
+ * @param i Índice de la raíz del subárbol a ajustar.
+ * @param heapSize Tamaño actual del montón válido en [arr].
+ */
 fun <T: Comparable<T>> maxHeapify(arr: Array<T>, i:Int, heapSize:Int){
     var largest: Int
     //le sumamos 1 a las variables ya que la raiz es 0 y no 1 como en el libro

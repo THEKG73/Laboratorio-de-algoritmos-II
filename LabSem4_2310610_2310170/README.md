@@ -27,11 +27,12 @@ Para optimizar el rendimiento con conjuntos de datos reducidos y servir de base 
 
 ## Extensiones Adicionales de la Librería
 
-Además de los métodos elementales anteriores, la biblioteca `Ordenamiento.kt` se ha expandido para incluir tres variantes del algoritmo fundamental Mergesort:
+Además de los métodos elementales anteriores, la biblioteca `Ordenamiento.kt` se ha expandido para incluir tres variantes del algoritmo fundamental Mergesort, y una implementación de Heapsort:
 
 * **`mergesortInsertion` (`mb`)**: Versión híbrida de Mergesort. Utiliza los métodos de tamaño fijo para arreglos de longitud de 2 a 4. Para sub-arreglos con un tamaño comprendido en el intervalo $[5..100]$, detiene la subdivisión recursiva y delega la ordenación al algoritmo `insertionSort` con el fin de mitigar el sobrecosto de llamadas en la pila.
 * **`mergesort` (`ms`)**: Versión recursiva estándar de Mergesort basada en el enfoque clásico de "Dividir y Vencerás" empleando (`merge`).
 * **`mergesortIterativo` (`mi`)**: Variante iterativa de Mergesort que prescinde de la recursividad, gestionando las mezclas de sub-arreglos de tamaño k por medio de bucles iterativos.
+* **`heapsort` (`hs`)**: Implementa el algoritmo Heap Sort. Construye un max-heap y extrae el mayor elemento repetidamente para ordenar el arreglo. Para arreglos pequeños y moderados delega en las funciones especializadas del laboratorio (`ordenaDos`, `ordenaTres`, `ordenaCuatro`, `insertionSort`) antes de aplicar la versión completa del Heap Sort.
 
 ---
 
