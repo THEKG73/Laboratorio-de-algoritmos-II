@@ -46,6 +46,7 @@ class SceneManager(val maxMovimientos: Int) {
     val historial: Array<IntArray> = Array(maxMovimientos) {IntArray(720) {-1}}
 
     var movimientoActual: Int = 0
+    var maxIdAsignado: Int = 0
 
     //Funcion encargada de gestionar un elemento hacia su correspondiente región
     fun insertarElementoGlobal(elemento: SpatialElement): Boolean {
@@ -60,7 +61,12 @@ class SceneManager(val maxMovimientos: Int) {
         val indiceRegion = (elemento.y/10)*10 + (elemento.x/10)
 
         //Insertamos el elemento en la región correspondiente
-        return tableroRegiones[indiceRegion].insertarElemento(elemento)
+        val insercionExitosa = tableroRegiones[indiceRegion].insertarElemento(elemento)
+
+        if (insercionExitosa && elemento.id > maxIdAsignado) {
+            maxIdAsignado = elemento.id
+        }
+        return insercionExitosa
     }
 
     fun desplazarCamara(camX: Int, camY: Int) {
@@ -100,15 +106,22 @@ class SceneManager(val maxMovimientos: Int) {
         val arregloOrdenado = Array<SpatialElement>(indiceVisible) {elementosVisiblesTemp[it]!!}
 
         //Selección de algoritmo de ordenamiento y ordenamiento de los elementos visibles
+        var nombreAlgoritmo = ""
         if (indiceVisible <= 50){
             Ordenamiento.insertionSort(arregloOrdenado)
+            nombreAlgoritmo = "InsertionSort"
         }
         else if (indiceVisible <= 200) {
             Ordenamiento.mergesort(arregloOrdenado)
+            nombreAlgoritmo = "MergeSort"
         }
         else {
             Ordenamiento.quickSort(arregloOrdenado)
+            nombreAlgoritmo = "QuickSort"
         }
+
+        println("Algoritmo utilizado: $nombreAlgoritmo")
+        println("Cantidad de elementos procesados: $indiceVisible")
 
         if (movimientoActual < maxMovimientos) {
             for (i in 0 until indiceVisible) {
@@ -116,5 +129,22 @@ class SceneManager(val maxMovimientos: Int) {
             }
             movimientoActual++
         }
+    }
+
+    fun reiniciarMapa() {
+        for (region in tableroRegiones) {
+            region.cantidadElementos = 0
+            for (i in region.almacenamiento.indices) {
+                region.almacenamiento[i] = null
+            }
+        }
+
+        for (fila in historial.indices) {
+            for (columna in historial[fila].indices) {
+                historial[fila][columna] = -1
+            }
+        }
+        movimientoActual = 0
+        maxIdAsignado = 0
     }
 }
