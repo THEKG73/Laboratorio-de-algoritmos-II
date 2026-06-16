@@ -298,6 +298,9 @@ fun <T: Comparable<T>> llamarOrdenamiento(arr:Array<T>, algoritmo: String):Doubl
         "ms" -> tempArr = mergesort(tempArr)
         "mi" -> tempArr = mergesortIterativo(tempArr)
         "hs" -> tempArr = heapsort(tempArr)
+        "qs" -> tempArr = quicksort(tempArr, 0, tempArr.size - 1)
+        "qp" -> tempArr = dualPivotQuicksort(tempArr, 0, tempArr.size - 1)
+        
     }
 
     // Tiempo de fin de la función de ordenamiento

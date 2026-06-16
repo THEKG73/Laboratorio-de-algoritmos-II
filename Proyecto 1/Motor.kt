@@ -116,7 +116,7 @@ class SceneManager(val maxMovimientos: Int) {
             nombreAlgoritmo = "MergeSort"
         }
         else {
-            Ordenamiento.quickSort(arregloOrdenado)
+            Ordenamiento.quickSort(arregloOrdenado, 0, arregloOrdenado.size - 1)
             nombreAlgoritmo = "QuickSort"
         }
 
