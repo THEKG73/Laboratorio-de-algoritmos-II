@@ -1,5 +1,22 @@
 import java.io.File
 
+
+/**
+ * Punto de entrada principal de la aplicación.
+ *
+ * Se encarga de validar los argumentos de la línea de comandos, inicializar el gestor de la escena
+ * (`SceneManager`), cargar los elementos espaciales iniciales desde un archivo y arrancar el menú interactivo.
+ *
+ * El programa requiere exactamente un argumento: la cantidad inicial de movimientos permitidos.
+ * 
+ * Precondición: 
+ * - Debe recibir un array de strings con un solo elemento, dicho elemento tiene que ser un entero positivo.
+ * 
+ * Postcondición: 
+ * - La función no devuelve nada, solo termina el programa si algo ocurrió mal o llama a la función menú.
+ *
+ * @param args Arreglo de argumentos pasados por la línea de comandos. Se espera un único string convertible a entero.
+ */
 fun main (args:Array<String>){
     if (args.size != 1){
         println("Se debe dar solo la cantidad de movimientos")
@@ -15,6 +32,25 @@ fun main (args:Array<String>){
     menu(mov,scene)
 }
 
+/**
+ * Controla el ciclo principal de la aplicación mediante un menú interactivo en consola de forma recursiva.
+ *
+ * Permite al usuario interactuar con la escena a través de 5 opciones principales:
+ * 1. Desplazar la cámara de visualización (consume un movimiento).
+ * 2. Insertar un nuevo elemento espacial (consume un movimiento).
+ * 3. Reiniciar el mapa al estado inicial (mantiene los movimientos actuales).
+ * 4. Exportar el histórico a un archivo de texto (`historico.txt`).
+ * 5. Salir del programa de manera ordenada.
+ * 
+ * Precondición: 
+ * - mov2 debe ser un número entero y scene2 debe ser un SceneManager
+ * 
+ * Postcondición: 
+ * - La función no devuelve nada, solo se llama a ella de manera recursiva.
+ *
+ * @param mov2 Cantidad actual de movimientos disponibles para el usuario.
+ * @param scene2 Instancia actual de [SceneManager] que gestiona los elementos y la lógica del mapa.
+ */
 fun menu(mov2: Int, scene2: SceneManager){
     var mov = mov2
     var scene = scene2
@@ -108,6 +144,25 @@ fun menu(mov2: Int, scene2: SceneManager){
     }
 }
 
+/**
+ * Lee la información de un archivo de texto llamado `objetos.txt` para poblar la escena con elementos espaciales iniciales.
+ *
+ * El formato esperado del archivo por cada línea no vacía es: `id, posX, posY, z`.
+ * 
+ * Se verifica que cada linea tenga el formato esperado y después se inserta en la escena.
+ *
+ * Si la inserción de algún elemento falla, el programa imprimirá un error por consola y finalizará inmediatamente su ejecución.
+ * 
+ * Precondición: 
+ * - El parámetro debe ser un SceneManager, el archivo "objetos.txt" debe existir em la carpeta 
+ * - y objetos.txt debe tener líneas con el formato `id, posX, posY, z`.
+ * 
+ * Postcondición: 
+ * - Se devuelve un SceneManager con todos los SpacialElement encontrados en el archivo objetos.txt
+ *
+ * @param scene Instancia de [SceneManager] donde se cargarán los elementos leídos.
+ * @return La misma instancia de [SceneManager] modificada con los nuevos objetos añadidos.
+ */
 fun cargarObjetosDesdeArchivo(scene: SceneManager): SceneManager {
     val file = File("objetos.txt")
     
@@ -118,21 +173,20 @@ fun cargarObjetosDesdeArchivo(scene: SceneManager): SceneManager {
             // Separamos los elementos por coma
             val partes = line.split(",")
             
+            if (partes.size != 4){
+                println("Cada línea debe tener la forma `ID,posX,posY,z`")
+                System.exit(-1)
+            }
+
             // Creamos el objeto con los datos de esta línea específica
             val objetoActual = SpatialElement(partes[0].trim().toInt(),partes[1].trim().toInt(), partes[2].trim().toInt(),partes[3].trim().toDouble())
             
             // Verificamos que se puede agregar correctamente
             if (!(scene.insertarElementoGlobal(objetoActual))){
-                println("Error: no se pudo agregar el elemento ID: $partes[0].trim().toInt().toString()")
+                println("Error: no se pudo agregar el elemento ID: ${partes[0].trim().toInt()}")
                 System.exit(-1)
             }
         }
     }
-    
-    /*for (fila in scene.historial.indices) {
-        for (columna in scene.historial[fila].indices) {
-            scene.historial[fila][columna] = -1
-        }
-    }*/
     return scene
 }
