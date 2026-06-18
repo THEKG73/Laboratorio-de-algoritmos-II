@@ -545,11 +545,11 @@ fun <T: Comparable<T>> maxHeapify(arr: Array<T>, i:Int, heapSize:Int){
  * @param r Índice final del segmento a ordenar.
  * @return El mismo arreglo [arr] ordenado ascendentemente dentro del rango especificado.
  */
-fun <T: Comparable<T>> quickSort(arr: Array<T>, p: Int, r: Int): Array<T> {
+fun <T: Comparable<T>> quicksort(arr: Array<T>, p: Int, r: Int): Array<T> {
     if (p < r) {
         val q = partition(arr, p, r)
-        quickSort(arr, p, q - 1)
-        quickSort(arr, q + 1, r)
+        quicksort(arr, p, q - 1)
+        quicksort(arr, q + 1, r)
     }
     return arr
 }
