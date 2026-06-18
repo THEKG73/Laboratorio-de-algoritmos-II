@@ -43,7 +43,7 @@ class SceneManager(val maxMovimientos: Int) {
     val tableroRegiones: Array<MapRegion> = Array(100) {MapRegion(it)}
 
     //Historial de movimientos realizados
-    val historial: Array<IntArray> = Array(maxMovimientos) {IntArray(720) {-1}}
+    var historial: Array<IntArray> = Array(maxMovimientos) {IntArray(480) {-1}}
 
     var movimientoActual: Int = 0
     var maxIdAsignado: Int = 0
@@ -57,11 +57,16 @@ class SceneManager(val maxMovimientos: Int) {
             return false
         }
 
+        if (elemento.z !in 0.0..10.9){
+            println("Error: El elemento con ID ${elemento.id} tiene el valor de z fuera de rango [0.0,10.9]")
+            return false
+        }
+
         //Calculamos el índice de la región correspondiente
         val indiceRegion = (elemento.y/10)*10 + (elemento.x/10)
 
         //Insertamos el elemento en la región correspondiente
-        val insercionExitosa = tableroRegiones[indiceRegion].insertarElemento(elemento)
+        val insercionExitosa = tableroRegiones[indiceRegion].insertarElemento(elemento) 
 
         if (insercionExitosa && elemento.id > maxIdAsignado) {
             maxIdAsignado = elemento.id
@@ -80,7 +85,7 @@ class SceneManager(val maxMovimientos: Int) {
         val filaMin = yMin / 10
         val filaMax = yMax / 10
 
-        val elementosVisiblesTemp = Array<SpatialElement?>(480) { null }
+        var elementosVisiblesTemp = Array<SpatialElement?>(480) { null }
         var indiceVisible = 0
 
         //Filtro de Visibilidad
