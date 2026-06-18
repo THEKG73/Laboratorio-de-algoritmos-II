@@ -15,8 +15,9 @@ fun main (args:Array<String>){
     menu(mov,scene)
 }
 
-fun menu(mov2: Int, scene: SceneManager){
+fun menu(mov2: Int, scene2: SceneManager){
     var mov = mov2
+    var scene = scene2
     println("\n\nOpciones\n")
     println("1. Desplazar cámara")
     println("2. Insertar elemento")
@@ -32,6 +33,7 @@ fun menu(mov2: Int, scene: SceneManager){
         1 -> {
             if (mov <= 0){
                 println("No tiene movimientos disponibles")
+                menu(mov,scene)
             } else {
                 println("Ingrese el centro de la cámara en X: ")
                 var camX = readln().toInt()
@@ -51,6 +53,7 @@ fun menu(mov2: Int, scene: SceneManager){
         2 -> {
             if (mov <= 0){
                 println("No tiene movimientos disponibles")
+                menu(mov,scene)
             } else {
                 println("Ingrese la coordenada del elemento en X: ")
                 val posX = readln().toInt()
@@ -77,6 +80,7 @@ fun menu(mov2: Int, scene: SceneManager){
         }
 
         3 -> {
+            scene=SceneManager(mov)
             cargarObjetosDesdeArchivo(scene)
             menu(mov,scene)
         }
