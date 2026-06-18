@@ -3,7 +3,7 @@ KC=kotlinc
 PROG=Proyecto.jar
 
 # TODOS los archivos fuentes necesarios 
-SRCS=main.kt Motor.kt Ordenamiento.kt PruebaRender.kt
+SRCS=Motor.kt Ordenamiento.kt PruebaRender.kt
 
 # Regla por defecto
 all: $(PROG)

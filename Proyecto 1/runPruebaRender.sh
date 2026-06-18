@@ -1,3 +1,3 @@
 #!/bin/bash
 
-java -jar Proyecto $0
+java -jar Proyecto.jar $1

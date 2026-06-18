@@ -613,13 +613,20 @@ fun <T: Comparable<T>> partition(arr: Array<T>, p: Int, r: Int): Int {
  */
 fun <T: Comparable<T>> dualPivotQuicksort(arr: Array<T>, left: Int, right: Int): Array<T> {
     if ((right - left) >= 1) {
-        val p = kotlin.math.min(arr[left], arr[right])
-        val q = kotlin.math.max(arr[left], arr[right])
+        var p:T
+        var q:T
+        if (arr[left] < arr[right]){
+            p = arr[left]
+            q = arr[right]
+        } else {
+            p = arr[right]
+            q = arr[left]
+        }
         var k = left + 1
         var l = k
         var g = right - 1
         while (k<=g) {
-            if arr[k] < p {
+            if (arr[k] < p) {
                 val temp = arr[k]
                 arr[k] = arr[l]
                 arr[l] = temp
@@ -651,4 +658,5 @@ fun <T: Comparable<T>> dualPivotQuicksort(arr: Array<T>, left: Int, right: Int):
         dualPivotQuicksort(arr, l + 1, g - 1)
         dualPivotQuicksort(arr, g + 1, right)
     }
+    return arr
 }

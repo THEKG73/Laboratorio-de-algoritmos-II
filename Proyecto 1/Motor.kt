@@ -113,15 +113,15 @@ class SceneManager(val maxMovimientos: Int) {
         //Selección de algoritmo de ordenamiento y ordenamiento de los elementos visibles
         var nombreAlgoritmo = ""
         if (indiceVisible <= 50){
-            Ordenamiento.insertionSort(arregloOrdenado)
+            insertionSort(arregloOrdenado)
             nombreAlgoritmo = "InsertionSort"
         }
         else if (indiceVisible <= 200) {
-            Ordenamiento.mergesort(arregloOrdenado)
+            mergesort(arregloOrdenado)
             nombreAlgoritmo = "MergeSort"
         }
         else {
-            Ordenamiento.quickSort(arregloOrdenado, 0, arregloOrdenado.size - 1)
+            quickSort(arregloOrdenado, 0, arregloOrdenado.size - 1)
             nombreAlgoritmo = "QuickSort"
         }
 
