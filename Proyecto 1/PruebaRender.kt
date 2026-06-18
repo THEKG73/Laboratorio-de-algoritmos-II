@@ -128,5 +128,11 @@ fun cargarObjetosDesdeArchivo(scene: SceneManager): SceneManager {
             }
         }
     }
+    
+    /*for (fila in scene.historial.indices) {
+        for (columna in scene.historial[fila].indices) {
+            scene.historial[fila][columna] = -1
+        }
+    }*/
     return scene
 }

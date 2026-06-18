@@ -20,7 +20,7 @@ class SpatialElement(val id: Int, val x: Int, val y: Int, val z: Double) : Compa
 //TAD Región Estructural (MapRegion)
 class MapRegion(val sectorId: Int) {
     //Almacenamiento de los cuadrantes
-    val almacenamiento: Array<SpatialElement?> = Array(100) { null }
+    var almacenamiento: Array<SpatialElement?> = Array(100) { null }
     //Contador de elementos
     var cantidadElementos: Int = 0
 
@@ -121,7 +121,7 @@ class SceneManager(val maxMovimientos: Int) {
             nombreAlgoritmo = "MergeSort"
         }
         else {
-            quicksort(arregloOrdenado, 0, arregloOrdenado.size - 1)
+            quickSort(arregloOrdenado, 0, arregloOrdenado.size - 1)
             nombreAlgoritmo = "QuickSort"
         }
 
