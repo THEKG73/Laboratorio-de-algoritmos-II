@@ -1,4 +1,4 @@
-# Laboratorio 4: QuickSort y dualPivotQuickSort
+# Laboratorio 4: QuickSort y Dual-Pivot QuickSort
 ### Kevin Gomes, carnet #23-10170
 ### David Garrido, carnet #23-10610
 \
@@ -29,7 +29,7 @@ Para optimizar el rendimiento con conjuntos de datos reducidos y servir de base 
 
 ## Extensiones Adicionales de la Librería
 
-Además de los métodos elementales anteriores, la biblioteca `Ordenamiento.kt` se ha expandido para incluir tres variantes del algoritmo fundamental Mergesort, y una implementación de Heapsort:
+Además de los métodos elementales anteriores, la biblioteca `Ordenamiento.kt` se ha expandido para incluir tres variantes del algoritmo fundamental Mergesort, una implementación de Heapsort, y dos de quicksort (quicksort y Dual-Pivot quicksort):
 
 * **`mergesortInsertion` (`mb`)**: Versión híbrida de Mergesort. Utiliza los métodos de tamaño fijo para arreglos de longitud de 2 a 4. Para sub-arreglos con un tamaño comprendido en el intervalo $[5..100]$, detiene la subdivisión recursiva y delega la ordenación al algoritmo `insertionSort` con el fin de mitigar el sobrecosto de llamadas en la pila.
 * **`mergesort` (`ms`)**: Versión recursiva estándar de Mergesort basada en el enfoque clásico de "Dividir y Vencerás" empleando (`merge`).
