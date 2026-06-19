@@ -3,7 +3,6 @@
 ### David Garrido, carnet #23-10610
 \
 Este proyecto contiene una librería de ordenamiento (`Ordenamiento.kt`) junto con un motor (`Motor.kt`) y programa cliente (`PruebaRender.kt`) encargado de inicializar el tablero y realizar todas las acciones que solicite el usuario.
----
 
 ## Extensiones de la librería de ordenamiento
 
