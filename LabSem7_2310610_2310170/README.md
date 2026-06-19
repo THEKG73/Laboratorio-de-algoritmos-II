@@ -31,6 +31,9 @@ Para optimizar el rendimiento con conjuntos de datos reducidos y servir de base 
 
 Además de los métodos elementales anteriores, la biblioteca `Ordenamiento.kt` se ha expandido para incluir tres variantes del algoritmo fundamental Mergesort, una implementación de Heapsort, y dos de quicksort (quicksort y Dual-Pivot quicksort):
 
+* **`InsertionSort` (`is`)**: Divide la lista en una sección ordenada y otra desordenada; toma un elemento de la parte desordenada y lo va comparando hacia atrás con los elementos ya ordenados hasta "insertarlo" en su posición correcta, desplazando los demás elementos un lugar hacia adelante.
+* **`selectionSort` (`ss`)**: Divide la lista en dos secciones (ordenada y desordenada) y en cada iteración busca el elemento más pequeño de la sección desordenada. Una vez que lo encuentra, lo intercambia directamente con el primer elemento de esa sección desordenada, haciendo crecer la parte ordenada posición por posición.
+* **`bubbleSort` (`bs`)**: Compara repetidamente pares de elementos adyacentes a lo largo de la lista y los intercambia si están en el orden incorrecto. De esta forma, en cada pasada completa, el elemento más pequeño "flota" como una burbuja hacia su posición final en el extremo del arreglo.
 * **`mergesortInsertion` (`mb`)**: Versión híbrida de Mergesort. Utiliza los métodos de tamaño fijo para arreglos de longitud de 2 a 4. Para sub-arreglos con un tamaño comprendido en el intervalo $[5..100]$, detiene la subdivisión recursiva y delega la ordenación al algoritmo `insertionSort` con el fin de mitigar el sobrecosto de llamadas en la pila.
 * **`mergesort` (`ms`)**: Versión recursiva estándar de Mergesort basada en el enfoque clásico de "Dividir y Vencerás" empleando (`merge`).
 * **`mergesortIterativo` (`mi`)**: Variante iterativa de Mergesort que prescinde de la recursividad, gestionando las mezclas de sub-arreglos de tamaño k por medio de bucles iterativos.
