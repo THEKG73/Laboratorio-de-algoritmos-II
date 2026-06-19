@@ -1,4 +1,4 @@
-# Laboratorio 4: QuickSort y dualPivotQuickSort
+# Laboratorio 4: QuickSort y Dual-Pivot QuickSort
 ### Kevin Gomes, carnet #23-10170
 ### David Garrido, carnet #23-10610
 \
