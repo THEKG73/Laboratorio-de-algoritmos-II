@@ -127,7 +127,11 @@ fun menu(mov2: Int, scene2: SceneManager){
             for (i in scene.historial){
                 val text = i.filter { it != -1 }.joinToString(separator = ", ")
                 if (text != ""){
-                    file.appendText(text+"\n\n")
+                    if (file.readText() == "") {
+                        file.appendText(text)
+                    } else {
+                        file.appendText("\n\n"+text)
+                    }
                 }
             }
             menu(mov,scene)
