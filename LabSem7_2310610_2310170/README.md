@@ -1,4 +1,4 @@
-# Laboratorio 3: Heapsort
+# Laboratorio 4: QuickSort y dualPivotQuickSort
 ### Kevin Gomes, carnet #23-10170
 ### David Garrido, carnet #23-10610
 \
@@ -35,7 +35,8 @@ Además de los métodos elementales anteriores, la biblioteca `Ordenamiento.kt` 
 * **`mergesort` (`ms`)**: Versión recursiva estándar de Mergesort basada en el enfoque clásico de "Dividir y Vencerás" empleando (`merge`).
 * **`mergesortIterativo` (`mi`)**: Variante iterativa de Mergesort que prescinde de la recursividad, gestionando las mezclas de sub-arreglos de tamaño k por medio de bucles iterativos.
 * **`heapsort` (`hs`)**: Implementa el algoritmo Heap Sort. Construye un max-heap y extrae el mayor elemento repetidamente para ordenar el arreglo. Para arreglos pequeños y moderados delega en las funciones especializadas del laboratorio (`ordenaDos`, `ordenaTres`, `ordenaCuatro`, `insertionSort`) antes de aplicar la versión completa del Heap Sort.
-
+* **`QuickSort` (`qs`)**: Funciona seleccionando un único elemento como pivote y reorganizando el arreglo de modo que todos los elementos menores o iguales al pivote se desplacen a su izquierda, y los mayores a su derecha. Una vez colocado el pivote en su posición correcta, el proceso se aplica de forma recursiva a los sub-arreglos izquierda y derecha hasta que todo el arreglo queda completamente ordenado.
+* **`Dual-Pivot Quicksort` (`qp`)**: Este algoritmo utiliza dos pivotes, en lugar de dividir el arreglo en dos partes, se particiona en tres secciones: elementos menores que el primer pivote, elementos que se encuentran entre ambos pivotes, y elementos mayores que el segundo pivote. Después, el algoritmo ejecuta llamadas recursivas sobre cada una de estas tres secciones de manera independiente, logrando reducir el número de comparaciones.
 ---
 
 ## Tipos de Arreglos Generados
