@@ -300,7 +300,10 @@ fun <T: Comparable<T>> llamarOrdenamiento(arr:Array<T>, algoritmo: String):Doubl
         "hs" -> tempArr = heapsort(tempArr)
         "qs" -> tempArr = quicksort(tempArr, 0, tempArr.size - 1)
         "qp" -> tempArr = dualPivotQuicksort(tempArr, 0, tempArr.size - 1)
-        
+        else -> {
+            println("Error: Algoritmo de ordenamiento inválido")
+            System.exit(1)
+        }
     }
 
     // Tiempo de fin de la función de ordenamiento
