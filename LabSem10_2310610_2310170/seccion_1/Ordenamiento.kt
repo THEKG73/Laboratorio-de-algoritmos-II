@@ -660,3 +660,104 @@ fun <T: Comparable<T>> dualPivotQuicksort(arr: Array<T>, left: Int, right: Int):
     }
     return arr
 }
+
+/**
+ * Ordena un arreglo utilizando el algoritmo de ordenamiento Counting Sort.
+ *
+ * Cuenta la frecuencia de cada elemento en el arreglo y luego reconstruye el arreglo ordenado
+ * basándose en estas frecuencias. Es eficiente para rangos pequeños de enteros.
+ *
+ * Precondiciones:
+ * - El objeto [A] no debe ser nulo.
+ * - Los elementos del arreglo deben ser números enteros no negativos.
+ *
+ * Postcondiciones:
+ * - El arreglo original [A] queda ordenado en forma ascendente.
+ *
+ * @param A Arreglo inicial desordenado de números.
+ * @return Un nuevo arreglo con los elementos de [A] ordenados ascendentemente.
+ */
+fun countingSort(A: Array<Int>): Array<Int> {
+    val k=A.maxOrNull()?.toInt() ?: 0
+    val C = Array(k + 1) {0}
+    val B = Array(A.size) {0}
+    for (i in 0 until A.size) {
+        C[A[i]]++        
+    }
+    for (i in 1..k) {
+        C[i] += C[i - 1]
+    }
+    for (i in A.size - 1 downTo 0) {
+        B[C[A[i]] - 1] = A[i]
+        C[A[i]]--
+    }
+    return B
+}
+
+/**
+ * Ordena un arreglo de números de punto flotante utilizando el algoritmo Radix Sort.
+ *
+ * Aplica Counting Sort de manera estable para cada dígito, comenzando desde el dígito menos significativo
+ * hasta el más significativo. Convierte los números de punto flotante a enteros eliminando el punto
+ * decimal.
+ *
+ * @param A Arreglo de números de punto flotante a ordenar.
+ * @param actual_d Índice del dígito actual a procesar.
+ * @param d Número total de dígitos en los números del arreglo.
+ * @return El mismo arreglo [A] ordenado ascendentemente.
+ */
+fun radixCountingSort(A: Array<Double>, actual_d: Int, d: Int): Array<Double> {
+    val A_digits = Array(A.size) {0}
+    for (i in A.indices) {
+        A_digits[i] = A[i].toString().replace(".", "").replace("-", "").padEnd(d, '0')[actual_d].digitToInt()
+    }
+    val k=A_digits.maxOrNull()?.toInt() ?: 0
+    val C = Array(k + 1) {0}
+    val B = Array(A.size) {0.0}
+    for (i in 0 until A.size) {
+        C[A_digits[i]]++        
+    }
+    for (i in 1..k) {
+        C[i] += C[i - 1]
+    }
+    for (i in A.size - 1 downTo 0) {
+        B[C[A_digits[i]] - 1] = A[i]
+        C[A_digits[i]]--
+    }
+    return B
+}
+
+/**
+ * Ordena un arreglo de números de punto flotante utilizando el algoritmo Radix Sort.
+ *
+ * Determina la cantidad máxima de dígitos en los números del arreglo y aplica Counting Sort
+ * para cada dígito, comenzando desde el dígito menos significativo hasta el más significativo.
+ *
+ * Precondiciones:
+ * - El objeto [A] no debe ser nulo.
+ *
+ * Postcondiciones:
+ * - El arreglo original [A] queda ordenado en forma ascendente.
+ *
+ * @param A Arreglo inicial desordenado de números de punto flotante.
+ * @return El mismo arreglo [A] ordenado ascendentemente según el digito actual sobre el que se está procesando.
+ */
+fun radixSort(A: Array<Double>): Array<Double> {
+    if (A.isEmpty()) return A
+
+    var d = 0
+    for (num in A) {
+        val len = num.toString().replace(".", "").replace("-", "").length
+        if (len > d) {
+            d = len
+        }
+    }
+    var B = A.copyOf()
+    for (i in d - 1 downTo 0) {
+        B = radixCountingSort(B, i, d)
+    }
+    for (i in A.indices) {
+        A[i] = B[i]
+    }
+    return A
+}
