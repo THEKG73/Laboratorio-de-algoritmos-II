@@ -40,6 +40,8 @@ Además de los métodos elementales anteriores, la biblioteca `Ordenamiento.kt` 
 * **`heapsort` (`hs`)**: Implementa el algoritmo Heap Sort. Construye un max-heap y extrae el mayor elemento repetidamente para ordenar el arreglo. Para arreglos pequeños y moderados delega en las funciones especializadas del laboratorio (`ordenaDos`, `ordenaTres`, `ordenaCuatro`, `insertionSort`) antes de aplicar la versión completa del Heap Sort.
 * **`QuickSort` (`qs`)**: Funciona seleccionando un único elemento como pivote y reorganizando el arreglo de modo que todos los elementos menores o iguales al pivote se desplacen a su izquierda, y los mayores a su derecha. Una vez colocado el pivote en su posición correcta, el proceso se aplica de forma recursiva a los sub-arreglos izquierda y derecha hasta que todo el arreglo queda completamente ordenado.
 * **`Dual-Pivot Quicksort` (`qp`)**: Este algoritmo utiliza dos pivotes, en lugar de dividir el arreglo en dos partes, se particiona en tres secciones: elementos menores que el primer pivote, elementos que se encuentran entre ambos pivotes, y elementos mayores que el segundo pivote. Después, el algoritmo ejecuta llamadas recursivas sobre cada una de estas tres secciones de manera independiente, logrando reducir el número de comparaciones.
+* **`Counting sort` (`cs`)**: Cuenta la frecuencia de cada elemento en un arreglo de contadores auxiliares y utiliza la suma acumulada de frecuencias para ubicar directamente cada entero en un nuevo arreglo ordenado.
+* **`Radix sort` (`rs`)**: Normaliza los flotantes a cadenas de texto de longitud fija y aplica un Counting Sort estable de manera individual sobre cada posición de dígito.
 ---
 
 ## Tipos de Arreglos Generados
