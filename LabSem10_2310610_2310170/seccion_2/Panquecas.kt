@@ -1,5 +1,22 @@
 import java.io.File
 
+/**
+ * Programa principal que procesa un archivo de entrada para ordenar panquecas en colas.
+ *
+ * Este programa lee un archivo de entrada que contiene información sobre varias colas de panquecas,
+ * y genera una salida que indica los movimientos necesarios para ordenar cada cola de panquecas.
+ *
+ * Precondiciones:
+ * - El archivo de entrada debe existir y ser accesible.
+ * - El primer valor del archivo debe ser un número entero que indique la cantidad de colas.
+ * - Cada cola debe estar representada en el archivo con un formato específico, donde primero se dice el numero de cola, y
+ *   cada línea posterior contiene el tamaño de cada panqueca en la cola correspondiente.
+ *
+ * Postcondiciones:
+ * - Se imprime en la salida estándar la secuencia de movimientos necesarios para ordenar cada cola de panquecas.
+ *
+ * @param args Arreglo de argumentos de línea de comandos. Se espera que contenga al menos un argumento: el nombre del archivo de entrada.
+ */
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
         println("Error: Debe proporcionar el archivo de entrada")
@@ -52,6 +69,23 @@ fun main(args: Array<String>) {
     println(salida.joinToString("\n"))
 }
 
+/**
+ * Invierte el orden de las panquecas a partir de un piso dado.
+ *
+ * Toma un arreglo [A] y un índice [piso], y voltea los elementos desde [piso] hasta el final del arreglo,
+ * revirtiendo su orden.
+ *
+ * Precondiciones:
+ * - El objeto [A] no debe ser nulo.
+ * - El índice [piso] debe estar dentro del rango válido del arreglo (0 <= piso < A.size).
+ *
+ * Postcondiciones:
+ * - Los elementos del arreglo [A] desde el índice [piso] hasta el final quedan invertidos.
+ *
+ * @param A Arreglo de enteros a modificar.
+ * @param piso Índice a partir del cual se realizará la inversión de los elementos.
+ * @return El mismo arreglo [A] con los elementos invertidos desde el índice especificado.
+ */
 fun voltear(A: Array<Int>, piso: Int): Array<Int> {
     var count = 1
     for (i in piso until (piso + (A.size - piso)/2)) {
