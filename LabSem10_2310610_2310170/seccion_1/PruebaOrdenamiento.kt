@@ -283,6 +283,7 @@ fun calcularDesviacionEstandar(tiempos: DoubleArray, promedio: Double): Double {
  * @param T Tipo genérico que debe ser Comparable.
  * @return Double indicando el tiempo de ejecución del algoritmo.
  */
+@Suppress("UNCHECKED_CAST")
 fun <T: Comparable<T>> llamarOrdenamiento(arr:Array<T>, algoritmo: String):Double {
 
     var tempArr = arr.copyOf()
@@ -300,6 +301,16 @@ fun <T: Comparable<T>> llamarOrdenamiento(arr:Array<T>, algoritmo: String):Doubl
         "hs" -> tempArr = heapsort(tempArr)
         "qs" -> tempArr = quicksort(tempArr, 0, tempArr.size - 1)
         "qp" -> tempArr = dualPivotQuicksort(tempArr, 0, tempArr.size - 1)
+        "cs" -> {
+            val intArr = tempArr as? Array<Int> 
+                ?: throw IllegalArgumentException("Counting Sort solo acepta arreglos de enteros.")
+            tempArr = countingSort(intArr) as Array<T>
+        }
+        "rs" -> {
+            val intArr = tempArr as? Array<Int> 
+                ?: throw IllegalArgumentException("Radix Sort solo acepta arreglos de enteros.")
+            tempArr = radixSort(intArr) as Array<T>
+        }
         else -> {
             println("Error: Algoritmo de ordenamiento inválido")
             System.exit(1)
