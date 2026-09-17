@@ -12,8 +12,7 @@
  class TAD_PMLI (val letra: Char) {
     val palabras: ConjuntoPalabras = ConjuntoPalabras()
     init {
-        require(letra.isLetter()) { "La letra debe ser un carácter alfabético." }
-        require(letra.isLowerCase()) { "La letra debe estar en minúscula." }
+        require(letra in 'a'..'z' || letra == 'ñ') { "La letra debe ser un carácter alfabético en minuscula." }
     }
     /**
      * Agrega una palabra al conjunto de la inicial correspondiente.
