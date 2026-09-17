@@ -14,10 +14,6 @@
     init {
         require(letra.isLetter()) { "La letra debe ser un carácter alfabético." }
         require(letra.isLowerCase()) { "La letra debe estar en minúscula." }
-        for (palabra in palabras.obtenerTodas()) {
-            require(esPalabraValida(palabra)) { "Las palabras deben ser validas." }
-            require(palabra.startsWith(letra)) { "Las palabras deben empezar con la letra ${letra}." }
-        }
     }
     /**
      * Agrega una palabra al conjunto de la inicial correspondiente.
