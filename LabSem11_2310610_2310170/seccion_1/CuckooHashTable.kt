@@ -54,7 +54,7 @@ class CuckooHashTable {
         // Cambio de base logaritmo para conseguir log_(1+epsilon)(r)
         val logBaseEpsilon = Math.log(capacidad.toDouble())/Math.log(baseLog)
 
-        // Fórmula exacta del artículo científico: ceil(3*log)
+        // Fórmula del paper de Cuckoo Hashing, ceil(3*log)
         val formulaMaxLoop = Math.ceil(3*logBaseEpsilon).toInt()
 
         // Piso de 10 para cuando la capacidad inicial es pequeña (como el tamaño inicial de 7)
