@@ -1,0 +1,1 @@
+class CuckooHashTableEntry(val clave: Int, var valor: String)
