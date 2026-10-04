@@ -24,8 +24,8 @@ En este espacio se recopilan las implementaciones, pruebas y soluciones desarrol
 ---
 
 ## 👨‍💻 Autores
-| **Kevin Gomes** | 23-10170 | [@THEKG73](https://github.com/) |
-| **David Garrido** | 23-10610 | [@dev-635](https://github.com/) |
+| **Kevin Gomes** | 23-10170 | [@THEKG73](https://github.com/THEKG73) |
+| **David Garrido** | 23-10610 | [@dev-635](https://github.com/dev-635) |
 
 ---
 
